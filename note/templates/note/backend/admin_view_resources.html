@@ -1,0 +1,784 @@
+{% extends 'admin_home/admin_base.html' %}
+
+{% load static %}
+{% block style %}
+    <style>
+        a:link {
+            text-decoration: none;
+        }
+
+        a:hover h3 {
+            color: #28a745;
+        }
+
+        a:first-child img {
+            transition: .2s;
+        }
+
+        a:first-child img:hover {
+            transform: scale(1.1);
+        }
+
+        .toggle-table {
+            cursor: pointer;
+            padding: 5px;
+            border: 1px solid;
+            border-radius: 5px;
+            min-width: 183px;
+            display: inline-block;
+        }
+
+    </style>
+{% endblock %}
+{% block body %}
+
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">
+                {{ subject.subject_name }}
+                Subject Details</h1>
+        </div>
+
+
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <div style="float: right">
+                    <a href="{% url 'adminViewSubject' subject.faculty_id %}" class="btn btn-info"><i
+                            class="fas fa-backward"></i> Go To Subject List</a>
+                    <a href="{% url 'adminLevel' %}" class="btn btn-primary"><i class="fas fa-layer-group"></i> Go To
+                        Level</a>
+                </div>
+                <h6 class="m-0 font-weight-bold text-primary">{{ subject.subject_name }} Subject</h6>
+            </div>
+            <div class="card-body">
+                <div class="topic-details">
+                    <a href="{% url 'adminViewSubject' subject.faculty_id %}">
+                        <img src="{{ subject.photo_url }}"        {# photo_url is in models.py#}
+                             alt="Faculty Image" width="100">
+                        <h3 style="font-weight: 900"> {{ subject.subject_name }}</h3>
+                    </a>
+                    <h5>
+                        Level : {{ subject.faculty.level.level_name }}<br>
+                        Faculty: {{ subject.faculty.faculty_name }}<br>
+                        {% if subject.faculty.level.level_name == 'Bachelor' %}
+                            year: {{ subject.year }}<br>
+                            Semester: {{ subject.subject_semester }}<br>
+                        {% else %}
+                            Grade: {{ subject.grade }}<br>
+                        {% endif %}
+                        Subject: {{ subject.subject_name }}
+                    </h5>
+
+                </div>
+                <hr>
+
+                <!--Accordion wrapper-->
+                <div class="accordion md-accordion accordion-blocks" id="accordionEx78" role="tablist"
+                     aria-multiselectable="true">
+                    <!-- Note card -->
+                    <div class="card shadow" style="margin-bottom: 20px;">
+
+                        <!-- Card header -->
+                        <div class="card-header" role="tab" id="headingUnfiled">
+
+                            <!--Options-->
+                            <div class="dropdown float-left">
+                                <button class="btn btn-info btn-sm m-0 mr-3 p-2 dropdown-toggle" type="button"
+                                        data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false"><i class="fas fa-pencil-alt"></i>
+                                </button>
+                                <div class="dropdown-menu dropdown-info">
+                                    <a class="dropdown-item" href="#" data-toggle="modal"
+                                       data-target="#addNotesModal"><i class="fas fa-folder-plus"
+                                                                       style="color: #28a745"></i> Add Notes</a>
+                                </div>
+                            </div>
+
+                            <!-- Heading -->
+                            <a data-toggle="collapse" data-parent="#accordionEx78" href="#collapseUnfiled"
+                               aria-expanded="true"
+                               aria-controls="collapseUnfiled">
+                                <h5 class="mt-1 mb-0">
+                                    <span>Notes</span>
+                                    <i class="fas fa-angle-down rotate-icon float-right"></i>
+                                </h5>
+                            </a>
+
+                        </div>
+
+                        <!-- Card body -->
+                        <div id="collapseUnfiled" class="collapse" role="tabpanel" aria-labelledby="headingUnfiled"
+                             data-parent="#accordionEx78">
+                            <div class="card-body">
+                                <!--Top Table UI-->
+                                <div class="table-ui p-2 mb-3 mx-3 mb-4"><h3>Notes Table</h3>
+                                </div>
+                                <!--Top Table UI-->
+                                <div class="table-responsive">
+                                    {% if notes %}
+                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                            <thead>
+                                            <tr class="text-center">
+
+                                                <th scope="col">Note Title</th>
+
+                                                {% if subject.faculty.level.level_name == 'Bachelor' %}
+                                                    <th scope="col">Semester</th>
+                                                    <th scope="col">Year</th>
+
+                                                {% else %}
+                                                    <th scope="col">Grade</th>
+                                                {% endif %}
+                                                <th scope="col">Document</th>
+                                                <th scope="col">Action</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            {% for note in notes %}
+                                                <tr>
+                                                    <td class="text-center">
+
+
+                                                        <h3 style="font-weight: 500">
+                                                            {{ note.note_title }}
+                                                        </h3>
+
+
+                                                    </td>
+                                                    {% if note.subject.faculty.level.level_name == 'Bachelor' %}
+                                                        <td class="text-center">
+                                                            <h3 style="font-weight: 500">{{ subject.subject_semester }}</h3>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <h3 style="font-weight: 500">{{ subject.year }}</h3>
+                                                        </td>
+
+                                                    {% elif note.subject.faculty.level.level_name != 'Bachelor' %}
+                                                        <td class="text-center">
+                                                            <h3 style="font-weight: 500">{{ subject.grade }}</h3>
+                                                        </td>
+
+                                                    {% endif %}
+                                                    <td class="text-center">
+
+
+                                                        <a href="{{ note.document.url }}"
+                                                           target="_blank">
+                                                            <img src="{{ note.photo_url }}" width="120"><br><br>
+
+                                                        </a>
+
+                                                    </td>
+
+                                                    <td class="text-center">
+
+
+                                                        <div style="text-align: center">
+                                                            <button class="btn btn-secondary dropdown-toggle btn-sm"
+                                                                    type="button"
+                                                                    id="dropdownMenuButton" data-toggle="dropdown"
+                                                                    aria-haspopup="true"
+                                                                    aria-expanded="false">
+                                                                Action
+                                                            </button>
+                                                            <div class="dropdown-menu animated--fade-in"
+                                                                 aria-labelledby="dropdownMenuButton">
+
+
+                                                                <a class="dropdown-item"
+                                                                   href="{{ note.document.url }}" target="_blank">
+                                                                    <i class="fas fa-fw fa-eye"></i> View</a>
+                                                                <a class="dropdown-item"
+                                                                   href="{% url 'adminEditNotes' note.id subject.id %}">
+                                                                    <i class="fas fa-fw fa-pen"></i> Edit
+                                                                </a>
+                                                                <form action="{% url 'adminDeleteNotes' note.id %}"
+                                                                      method="POST"
+                                                                      class="d-inline">
+                                                                    {% csrf_token %}
+                                                                    <input type="hidden" name="redirect_subject_id"
+                                                                           value="{{ subject.id }}">
+                                                                    <button type="submit"
+                                                                            class="dropdown-item delete-data-confirmation"
+                                                                            onclick="deleteFunction()"
+                                                                            style="color: #ff0000">
+                                                                        <i class="fas fa-fw fa-trash"></i>
+                                                                        Delete
+                                                                    </button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+
+                                                    </td>
+
+                                                </tr>
+                                            {% endfor %}
+
+                                            </tbody>
+
+                                        </table>
+
+                                    {% else %}
+                                        <div class="alert alert-info">
+                                            <strong>Info!</strong> No any Notes are available. Please add the Notes!
+                                        </div>
+                                    {% endif %}
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Note card Ends -->
+
+                    <!-- Syllabus card -->
+                    <div class="card shadow" style="margin-bottom: 20px;">
+
+                        <!-- Card header -->
+                        <div class="card-header" role="tab" id="heading79">
+                            <!--Options-->
+                            <div class="dropdown float-left">
+                                <button class="btn btn-info btn-sm m-0 mr-3 p-2 dropdown-toggle" type="button"
+                                        data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false"><i class="fas fa-pencil-alt"></i>
+                                </button>
+                                <div class="dropdown-menu dropdown-info">
+                                    <a class="dropdown-item" href="#" data-toggle="modal"
+                                       data-target="#addSyllabusModal"><i class="fas fa-folder-plus"
+                                                                          style="color: #28a745"></i> Add Syllabus</a>
+                                </div>
+                            </div>
+                            <!-- Heading -->
+                            <a data-toggle="collapse" data-parent="#accordionEx78" href="#collapse79"
+                               aria-expanded="true"
+                               aria-controls="collapse79">
+                                <h5 class="mt-1 mb-0">
+                                    <span>Syllabus</span>
+                                    <i class="fas fa-angle-down rotate-icon float-right"></i>
+                                </h5>
+                            </a>
+                        </div>
+
+                        <!-- Card body -->
+                        <div id="collapse79" class="collapse " role="tabpanel" aria-labelledby="heading79"
+                             data-parent="#accordionEx78">
+                            <div class="card-body">
+
+                                <!--Top Table UI-->
+                                <div class="table-ui p-2 mb-3 mx-3 mb-4">
+                                </div>
+                                <!--Top Table UI-->
+
+                                <!--Syllabus Data Table will be here -->
+                                <div class="table-responsive">
+                                    {% if syllabuses %}
+                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                            <thead>
+                                            <tr class="text-center">
+
+                                                <th scope="col">Syllabus Title</th>
+
+                                                {% if subject.faculty.level.level_name == 'Bachelor' %}
+                                                    <th scope="col">Semester</th>
+                                                    <th scope="col">Year</th>
+
+                                                {% else %}
+                                                    <th scope="col">Grade</th>
+                                                {% endif %}
+                                                <th scope="col">Document</th>
+                                                <th scope="col">Action</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            {% for syllabus in syllabuses %}
+                                                <tr>
+                                                    <td class="text-center">
+
+
+                                                        <h3 style="font-weight: 500">
+                                                            {{ syllabus.syllabus_title }}
+                                                        </h3>
+
+
+                                                    </td>
+                                                    {% if syllabus.subject.faculty.level.level_name == 'Bachelor' %}
+                                                        <td class="text-center">
+                                                            <h3 style="font-weight: 500">{{ subject.subject_semester }}</h3>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <h3 style="font-weight: 500">{{ subject.year }}</h3>
+                                                        </td>
+
+                                                    {% elif syllabus.subject.faculty.level.level_name != 'Bachelor' %}
+                                                        <td class="text-center">
+                                                            <h3 style="font-weight: 500">{{ subject.grade }}</h3>
+                                                        </td>
+
+                                                    {% endif %}
+                                                    <td class="text-center">
+
+
+                                                        <a href="{{ syllabus.document.url }}"
+                                                           target="_blank">
+                                                            <img src="{{ syllabus.photo_url }}" width="120"><br><br>
+
+                                                        </a>
+
+                                                    </td>
+
+                                                    <td class="text-center">
+
+
+                                                        <div style="text-align: center">
+                                                            <button class="btn btn-secondary dropdown-toggle btn-sm"
+                                                                    type="button"
+                                                                    id="dropdownMenuButton" data-toggle="dropdown"
+                                                                    aria-haspopup="true"
+                                                                    aria-expanded="false">
+                                                                Action
+                                                            </button>
+                                                            <div class="dropdown-menu animated--fade-in"
+                                                                 aria-labelledby="dropdownMenuButton">
+
+
+                                                                <a class="dropdown-item"
+                                                                   href="{{ syllabus.document.url }}" target="_blank">
+                                                                    <i class="fas fa-fw fa-eye"></i> View</a>
+                                                                <a class="dropdown-item"
+                                                                   href="{% url 'adminEditSyllabus' syllabus.id subject.id %}">
+                                                                    <i class="fas fa-fw fa-pen"></i> Edit
+                                                                </a>
+                                                                <form action="{% url 'adminDeleteSyllabus' syllabus.id %}"
+                                                                      method="POST"
+                                                                      class="d-inline">
+                                                                    {% csrf_token %}
+                                                                    <input type="hidden" name="redirect_subject_id"
+                                                                           value="{{ subject.id }}">
+                                                                    <button type="submit"
+                                                                            class="dropdown-item delete-data-confirmation"
+                                                                            onclick="deleteFunction()"
+                                                                            style="color: #ff0000">
+                                                                        <i class="fas fa-fw fa-trash"></i>
+                                                                        Delete
+                                                                    </button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+
+                                                    </td>
+
+                                                </tr>
+                                            {% endfor %}
+
+                                            </tbody>
+
+                                        </table>
+
+                                    {% else %}
+                                        <div class="alert alert-info">
+                                            <strong>Info!</strong> No any Syllabus are available. Please add the
+                                            Syllabus!
+                                        </div>
+                                    {% endif %}
+
+                                </div>
+
+
+                                <!-- Syllabus Data Table Ends -->
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Syllabus card Ends -->
+
+                    <!-- Past Question card -->
+                    <div class="card shadow" style="margin-bottom: 20px;">
+
+                        <!-- Card header -->
+                        <div class="card-header" role="tab" id="heading80">
+                            <!--Options-->
+                            <div class="dropdown float-left">
+                                <button class="btn btn-info btn-sm m-0 mr-3 p-2 dropdown-toggle" type="button"
+                                        data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false"><i class="fas fa-pencil-alt"></i>
+                                </button>
+                                <div class="dropdown-menu dropdown-info">
+                                    <a class="dropdown-item" href="#" data-toggle="modal"
+                                       data-target="#addPastQuestionModal"><i
+                                            class="fas fa-folder-plus"
+                                            style="color: #28a745"></i> Add Past Questions</a>
+                                </div>
+                            </div>
+
+                            <!-- Heading -->
+                            <a data-toggle="collapse" data-parent="#accordionEx78" href="#collapse80"
+                               aria-expanded="true"
+                               aria-controls="collapse80">
+                                <h5 class="mt-1 mb-0">
+                                    <span>Past Question</span>
+                                    <i class="fas fa-angle-down rotate-icon float-right"></i>
+                                </h5>
+                            </a>
+                        </div>
+
+                        <!-- Card body -->
+                        <div id="collapse80" class="collapse" role="tabpanel" aria-labelledby="heading80"
+                             data-parent="#accordionEx78">
+                            <div class="card-body">
+
+                                <!--Top Table UI-->
+                                <div class="table-ui p-2 mb-3 mx-3 mb-4">
+                                </div>
+                                <!--Top Table UI-->
+
+                                <!-- Past Question Table -->
+
+                                <!--Syllabus Data Table will be here -->
+                                <div class="table-responsive">
+                                    {% if past_questions %}
+                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                            <thead>
+                                            <tr class="text-center">
+
+                                                <th scope="col">Past Question Title</th>
+
+                                                {% if subject.faculty.level.level_name == 'Bachelor' %}
+                                                    <th scope="col">Semester</th>
+                                                    <th scope="col">Year</th>
+
+                                                {% else %}
+                                                    <th scope="col">Grade</th>
+                                                {% endif %}
+                                                <th scope="col">Document</th>
+                                                <th scope="col">Action</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            {% for past_question in past_questions %}
+                                                <tr>
+                                                    <td class="text-center">
+
+
+                                                        <h3 style="font-weight: 500">
+                                                            {{ past_question.pq_title }}
+                                                        </h3>
+
+
+                                                    </td>
+                                                    {% if past_question.subject.faculty.level.level_name == 'Bachelor' %}
+                                                        <td class="text-center">
+                                                            <h3 style="font-weight: 500">{{ subject.subject_semester }}</h3>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <h3 style="font-weight: 500">{{ subject.year }}</h3>
+                                                        </td>
+
+                                                    {% elif past_question.subject.faculty.level.level_name != 'Bachelor' %}
+                                                        <td class="text-center">
+                                                            <h3 style="font-weight: 500">{{ subject.grade }}</h3>
+                                                        </td>
+
+                                                    {% endif %}
+                                                    <td class="text-center">
+
+
+                                                        <a href="{{ past_question.document.url }}"
+                                                           target="_blank">
+                                                            <img src="{{ past_question.photo_url }}"
+                                                                 width="120"><br><br>
+
+                                                        </a>
+
+                                                    </td>
+
+                                                    <td class="text-center">
+
+
+                                                        <div style="text-align: center">
+                                                            <button class="btn btn-secondary dropdown-toggle btn-sm"
+                                                                    type="button"
+                                                                    id="dropdownMenuButton" data-toggle="dropdown"
+                                                                    aria-haspopup="true"
+                                                                    aria-expanded="false">
+                                                                Action
+                                                            </button>
+                                                            <div class="dropdown-menu animated--fade-in"
+                                                                 aria-labelledby="dropdownMenuButton">
+
+
+                                                                <a class="dropdown-item"
+                                                                   href="{{ past_question.document.url }}"
+                                                                   target="_blank">
+                                                                    <i class="fas fa-fw fa-eye"></i> View</a>
+                                                                <a class="dropdown-item"
+                                                                   href="{% url 'adminEditPastQuestion' past_question.id subject.id %}">
+                                                                    <i class="fas fa-fw fa-pen"></i> Edit
+                                                                </a>
+                                                                <form action="{% url 'adminDeletePastQuestion' past_question.id %}"
+                                                                      method="POST"
+                                                                      class="d-inline">
+                                                                    {% csrf_token %}
+                                                                    <input type="hidden" name="redirect_subject_id"
+                                                                           value="{{ subject.id }}">
+                                                                    <button type="submit"
+                                                                            class="dropdown-item delete-data-confirmation"
+                                                                            onclick="deleteFunction()"
+                                                                            style="color: #ff0000">
+                                                                        <i class="fas fa-fw fa-trash"></i>
+                                                                        Delete
+                                                                    </button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+
+                                                    </td>
+
+                                                </tr>
+                                            {% endfor %}
+
+                                            </tbody>
+
+                                        </table>
+
+                                    {% else %}
+                                        <div class="alert alert-info">
+                                            <strong>Info!</strong> No any Past Questions are available. Please add the
+                                            Past Questions!
+                                        </div>
+                                    {% endif %}
+
+                                </div>
+                                <!-- Past Question Table Ends -->
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Past Question card Ends -->
+
+
+                    <!-- PQ Solution card -->
+                    <div class="card">
+
+                        <!-- Card header -->
+                        <div class="card-header" role="tab" id="heading">
+                            <!--Options-->
+                            <div class="dropdown float-left">
+                                <button class="btn btn-info btn-sm m-0 mr-3 p-2 dropdown-toggle" type="button"
+                                        data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false"><i class="fas fa-pencil-alt"></i>
+                                </button>
+                                <div class="dropdown-menu dropdown-info">
+                                    <a class="dropdown-item" href="#" data-toggle="modal"
+                                       data-target="#addPastQuestionSolutionModal"><i class="fas fa-folder-plus"
+                                                                                      style="color: #28a745"></i> Add
+                                        Solution</a>
+
+                                </div>
+                            </div>
+
+                            <!-- Heading -->
+                            <a data-toggle="collapse" data-parent="#accordionEx78" href="#collapse81"
+                               aria-expanded="true"
+                               aria-controls="collapse81">
+                                <h5 class="mt-1 mb-0">
+                                    <span>Past Question Solution</span>
+                                    <i class="fas fa-angle-down rotate-icon float-right"></i>
+                                </h5>
+                            </a>
+                        </div>
+
+                        <!-- Card body -->
+                        <div id="collapse81" class="collapse" role="tabpanel" aria-labelledby="heading"
+                             data-parent="#accordionEx78">
+                            <div class="card-body">
+
+                                <!--Top Table UI-->
+                                <div class="table-ui p-2 mb-3 mx-3 mb-4">
+
+
+                                </div>
+                                <!--Top Table UI-->
+
+                                <!-- Past Question Solution Table -->
+                                <div class="table-responsive">
+                                    {% if past_question_solutions %}
+                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                            <thead>
+                                            <tr class="text-center">
+
+                                                <th scope="col">Past Question Solution Title</th>
+
+                                                {% if subject.faculty.level.level_name == 'Bachelor' %}
+                                                    <th scope="col">Semester</th>
+                                                    <th scope="col">Year</th>
+
+                                                {% else %}
+                                                    <th scope="col">Grade</th>
+                                                {% endif %}
+                                                <th scope="col">Document</th>
+                                                <th scope="col">Action</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            {% for pqs in past_question_solutions %}
+                                                <tr>
+                                                    <td class="text-center">
+
+
+                                                        <h3 style="font-weight: 500">
+                                                            {{ pqs.pqs_title }}
+                                                        </h3>
+
+
+                                                    </td>
+                                                    {% if pqs.subject.faculty.level.level_name == 'Bachelor' %}
+                                                        <td class="text-center">
+                                                            <h3 style="font-weight: 500">{{ subject.subject_semester }}</h3>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <h3 style="font-weight: 500">{{ subject.year }}</h3>
+                                                        </td>
+
+                                                    {% elif pqs.subject.faculty.level.level_name != 'Bachelor' %}
+                                                        <td class="text-center">
+                                                            <h3 style="font-weight: 500">{{ subject.grade }}</h3>
+                                                        </td>
+
+                                                    {% endif %}
+                                                    <td class="text-center">
+
+
+                                                        <a href="{{ pqs.document.url }}"
+                                                           target="_blank">
+                                                            <img src="{{ pqs.photo_url }}"
+                                                                 width="120"><br><br>
+
+                                                        </a>
+
+                                                    </td>
+
+                                                    <td class="text-center">
+
+
+                                                        <div style="text-align: center">
+                                                            <button class="btn btn-secondary dropdown-toggle btn-sm"
+                                                                    type="button"
+                                                                    id="dropdownMenuButton" data-toggle="dropdown"
+                                                                    aria-haspopup="true"
+                                                                    aria-expanded="false">
+                                                                Action
+                                                            </button>
+                                                            <div class="dropdown-menu animated--fade-in"
+                                                                 aria-labelledby="dropdownMenuButton">
+                                                                <a class="dropdown-item"
+                                                                   href="{{ pqs.document.url }}"
+                                                                   target="_blank">
+                                                                    <i class="fas fa-fw fa-eye"></i> View</a>
+                                                                <a class="dropdown-item"
+                                                                   href="{% url 'adminEditPastQuestionSolution' pqs.id subject.id %}">
+                                                                    <i class="fas fa-fw fa-pen"></i> Edit</a>
+                                                                    <form action="{% url 'adminDeletePastQuestionSolution' pqs.id %}"
+                                                                          method="POST"
+                                                                          class="d-inline">
+                                                                        {% csrf_token %}
+                                                                        <input type="hidden" name="redirect_subject_id"
+                                                                               value="{{ subject.id }}">
+                                                                        <button type="submit"
+                                                                                class="dropdown-item delete-data-confirmation"
+                                                                                onclick="deleteFunction()"
+                                                                                style="color: #ff0000">
+                                                                            <i class="fas fa-fw fa-trash"></i>
+                                                                            Delete
+                                                                        </button>
+                                                                    </form>
+                                                                </a>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </td>
+
+                                                </tr>
+                                            {% endfor %}
+
+                                            </tbody>
+
+                                        </table>
+
+                                    {% else %}
+                                        <div class="alert alert-info">
+                                            <strong>Info!</strong> No any Past Questions are available. Please add the
+                                            Past Questions!
+                                        </div>
+                                    {% endif %}
+
+                                </div>
+
+
+                                <!-- Past Question Solution Table Ends -->
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- PQ Solution card Ends-->
+                </div>
+                <!--/.Accordion wrapper-->
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+    {% include 'note/backend/notes/admin_add_notes.html' %}
+
+    {% include 'note/backend/syllabus/admin_add_syllabus.html' %}
+
+    {% include 'note/backend/pastQuestion/admin_add_pq.html' %}
+
+    {% include 'note/backend/PQS/admin_add_pqs.html' %}
+
+
+    {% block script %}
+        <!-- Sweet alert Link -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+        <link rel="stylesheet" type="text/css"
+              href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+        <script>
+            function deleteFunction() {
+                event.preventDefault(); // prevent form submit
+                let form = event.target.form; // storing the form
+                swal({
+                        title: "Are you sure you want to delete?",
+                        text: "Once it's done it can't be undone.",
+                        type: "warning",
+                        showCancelButton: true,
+                        cancelButtonColor: "#FFF",
+                        confirmButtonColor: "#dd6b55",
+                        confirmButtonText: "Yes, Delete it!",
+                        cancelButtonText: "No, cancel please!",
+                        closeOnConfirm: false,
+                        closeOnCancel: false
+                    },
+                    function (isConfirm) {
+                        if (isConfirm) {
+                            form.submit();          // submitting the form when user press yes
+                        } else {
+                            swal("Cancelled", "Not deleted. ", "error");
+                        }
+                    });
+            }
+        </script>
+
+
+
+    {% endblock %}
+{% endblock %}

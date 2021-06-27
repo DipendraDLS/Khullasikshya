@@ -1,0 +1,136 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+
+{% block body %}
+    {% block style %}
+        <style>
+            a:first-child img {
+                transition: .2s;
+            }
+
+            a:first-child img:hover {
+                transform: scale(1.1);
+            }
+
+        </style>
+    {% endblock %}
+
+
+    <!-- page title -->
+    <section class="page-title-section overlay" data-background="{% static 'home/images/backgrounds/page-title.jpg' %}">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <ul class="list-inline custom-breadcrumb">
+                        <li class="list-inline-item"><a class="h2 text-primary font-secondary"
+                                                        href="{% url 'bachelor' %}"><strong>Bachelor</strong>
+                        </a></li>
+                        <li class="list-inline-item text-white h3 font-secondary nasted">
+                            <a href="{% url 'bachelorCourseDetail' faculty.id %}"
+                               class="h3 text-primary font-secondary">
+                                <b>{{ faculty.faculty_name }}</b>
+                            </a>
+                        </li>
+                        <li class="list-inline-item text-white h3 font-secondary nasted">
+                            <b>7<sup>th</sup> Semester</b></li>
+                    </ul>
+                    <p class="text-lighten">We provide free notes, syllabus, past paper questions along with it's
+                        solution which can be really helpful during your entire bachelor life.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /page title -->
+    <div class="container mt-5">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+
+                <div style="display: flex; justify-content: space-between">
+                    <h6 class="m-0 font-weight-bold">{{ faculty.faculty_name }}</h6>
+
+                    <a href="{% url 'bachelorCourseDetail' faculty.id %}" class="btn btn-primary"><i
+                            class="fas fa-backward"></i> Semesters</a>
+
+
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="topic-details">
+                    <a href="#">
+                        <img src="{{ faculty.photo_url }}"        {# photo_url is in models.py#}
+                             alt="Faculty Image" width="100">
+                        <h3 style="font-weight: 900"> {{ subject.subject_name }}</h3>
+                    </a>
+                    <div class="details">
+                        <h5>
+                            Level : {{ faculty.level.level_name }}
+                        </h5>
+                        <h5>
+                            Faculty: {{ faculty.faculty_name }}
+                        </h5>
+                        <h5>
+                            Year: 4<sup>th</sup> year<br>
+                        </h5>
+                        <h5>
+                            Semester: 7<sup>th</sup> sem<br>
+                        </h5>
+                    </div>
+
+                </div>
+                <hr>
+                {% if subjects_seventh_sem %}
+                    <section class="section" style="margin-top: -80px">
+                        <div class="container">
+
+                            <div class="row">
+                                <div style="width: 100%; height: 15px; border-bottom: 1px solid black; text-align: center; margin-bottom: 40px;">
+                            <span style="font-size: 20px; background-color: white;">
+                               7<sup>th</sup> Sem Subjects <!--Padding is optional-->
+                            </span>
+                                </div>
+
+                                {% for subject in subjects_seventh_sem %}
+
+                                    <div class="col-12">
+                                        <ul class="list-unstyled">
+                                            <!-- Subject item -->
+
+                                            <li class="d-md-table mb-4 w-100 border-bottom hover-shadow">
+                                                <div class="d-md-table-cell text-center p-4 bg-primary text-white mb-4 mb-md-0">
+                                                    <img src="{% static 'images/subject_logo.png' %}" width="100"
+                                                         height="100">
+
+                                                </div>
+                                                <div class="d-md-table-cell px-4 vertical-align-middle mb-4 mb-md-0">
+                                                    <a href="{% url 'bachelorResources' subject.id %}"
+                                                       class="h4 mb-3 d-block">{{ subject.subject_name }}</a>
+                                                    In order to access all the notes, syllabus, past questions with
+                                                    solution
+                                                    click view details.
+                                                </div>
+                                                <div class="d-md-table-cell text-right pr-0 pr-md-4"><a
+                                                        href="{% url 'bachelorResources' subject.id %}"
+                                                        class="btn btn-primary">view
+                                                    details</a>
+                                                </div>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                    </section>
+                {% else %}
+                    <div class="alert alert-info">
+                        <strong>Not available!</strong> We will add resources as soon as possible.
+                    </div>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

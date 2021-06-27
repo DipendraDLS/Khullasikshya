@@ -1,0 +1,63 @@
+{% extends 'admin_home/admin_base.html' %}
+
+{% load static %}
+
+{% block body %}
+    <div class="container-fluid">
+
+
+        <!-- Blog Edit Table -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <a href="{% url 'adminViewSubject' faculty_id %}">
+                    <button type="submit" class="btn btn-primary">Back</button>
+                </a>
+            </div>
+            <div class="card-body">
+
+                <form action="" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        <label for="subject_name">Subject Name</label>
+                        {{ form.subject_name }}
+                    </div>
+                    {% if faculty.level.level_name == 'Bachelor' %}
+                        <div class="form-group">
+                            <label for="subject_semester">Semester</label>
+                            {{ form.subject_semester }}
+                        </div>
+                        <div class="form-group">
+                            <label for="year">Year</label>
+                            {{ form.year }}
+                        </div>
+                    {% else %}
+                        <div class="form-group">
+                            <label for="grade">Grade</label>
+                            {{ form.grade }}
+                        </div>
+                    {% endif %}
+                    <div class="form-group">
+                        <label for="subject_order">Subject Order</label>
+                        {{ form.subject_order }}
+                    </div>
+                    <div class="form-group">
+                        <label for="subject_description">Description</label>
+                        {{ form.subject_description }}
+                    </div>
+                    <div class="form-group">
+                        <label for="subject_image">Image</label>
+                        {{ form.subject_image }}
+
+                    </div>
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+{% endblock %}

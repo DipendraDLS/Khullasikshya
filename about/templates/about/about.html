@@ -1,0 +1,77 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+
+{% block body %}
+    {% block style %}
+        <style>
+
+            /* about us */
+
+
+            #about-us {
+                padding: 80px 0;
+            }
+
+
+            .our-img {
+                width: 300px;
+                margin-top: 10px;
+                border-radius: 50%;
+                border: 10px solid whitesmoke;
+            }
+
+            .our {
+                padding: 20px;
+            }
+
+            .our h4 {
+                text-transform: uppercase;
+                padding: 5px;
+                margin-top: 25px;
+            }
+
+        </style>
+    {% endblock %}
+    <!-- page title -->
+    <section class="page-title-section overlay" data-background="{% static 'home/images/backgrounds/page-title.jpg' %}">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <ul class="list-inline custom-breadcrumb">
+                        <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="{% url 'about' %}"><b>About
+                            Us</b></a></li>
+                        <li class="list-inline-item text-white h3 font-secondary @@nasted"></li>
+                    </ul>
+                    <p class="text-lighten">We are the developers of khullasikshya website.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /page title -->
+
+
+    <!-- About Us -->
+    <section id="about-us">
+        <div class="container">
+            <h1 class="title2 text-center">Khullasikshya </h1>
+            <div class="row text-center">
+                <div class="col-md-6 our">
+                    <img src="{% static 'images/anuj.jpg' %}" alt="anuj-img" class="our-img">
+                    <h4>Anuj Pokharel</h4>
+                    <p>Frontend developer.</p>
+                </div>
+                <div class="col-md-6 our">
+                    <img src="{% static 'images/dipendra.jpg' %}" alt="dipendra-img" class="our-img">
+                    <h4>Dipendra Shrestha</h4>
+                    <p>Backend developer.</p>
+                </div>
+            </div>
+            <h4 class="text-center">We are the Creator of khullasikshya</h4>
+            <p class="text-center">You can access all the notes, syllabus, past questions along with it's solutions
+                from school level to the bachelor's level. </p>
+            <p class="text-center">Grab your resources and feel free to learn.</p>
+        </div>
+    </section>
+
+{% endblock %}

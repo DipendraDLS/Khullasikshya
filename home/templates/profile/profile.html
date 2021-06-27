@@ -1,0 +1,168 @@
+{% extends 'home/base.html' %}
+
+{% load static %}
+
+
+{% block body %}
+    <style>
+        .table td {
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .width {
+            width: 50%;
+        }
+    </style>
+
+    <!-- page title -->
+    <section class="page-title-section overlay" data-background="{% static 'home/images/backgrounds/page-title.jpg' %}">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <ul class="list-inline custom-breadcrumb">
+                        <li class="list-inline-item"><a class="h2 text-primary font-secondary "
+                                                        href="{% url 'profile' %}">
+                            <b>User Profile</b></a></li>
+                        <li class="list-inline-item text-white h3 font-secondary @@nasted"></li>
+                    </ul>
+                    <p class="text-lighten">User information.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /page title -->
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-12">
+                
+                <div class="card mt-4 mb-4">
+                    <div class="card-body">
+                        <div class="card">
+                            <div class="card-header">
+                                Profile
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Personal Info</h5>
+                                <p class="card-text">Basic info, such as your name and photo, that you use on
+                                    Khullasikshya.</p>
+
+                                <div class="row mt-4">
+                                    <div class="col-md-6">
+                                        <img src="{{ user.image.url }}" width="250;" height="auto"
+                                             style=" border: 3px solid #005580; border-radius: 50%"
+                                             alt="User_Pic" class="img-fluid mb-5   ">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <form action="{% url 'upload_pic' %}" method="post"
+                                              enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <div class="form-group">
+                                                <input class="mb-4 width" type="file" name="image"><br>
+                                                <input type="submit" value="Submit" class="btn btn-info  mb-4">
+
+                                            </div>
+
+                                        </form>
+                                    </div>
+
+                                </div>
+
+
+                                <table class="table table-hover">
+                                    <tbody>
+                                    <tr>
+                                        <td><b>Username:</b></td>
+                                        <td>{{ request.user.username }} </td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Email:</b></td>
+                                        <td>{{ request.user.email }} </td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Name:</b></td>
+                                        <td>
+                                            {% if request.user.first_name == '' %}
+                                                <a href="" data-toggle="modal" data-target="#exampleModal">Add
+                                                    Name</a>
+                                            {% else %}
+
+                                                {{ request.user.first_name }} {{ request.user.last_name }}<br><br>
+                                                <a href="" data-toggle="modal" data-target="#exampleModal"
+                                                   style="color:dimgrey;"><i class="fal fa-cogs"></i> Change
+                                                    Name</a>
+                                            {% endif %}
+                                        </td>
+
+
+                                    </tr>
+
+                                    <tr>
+                                        <td><b>User Created at:</b></td>
+                                        <td>{{ request.user.date_joined }} </td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Status:</b></td>
+                                        <td>
+                                            {% if request.user.is_active %}
+                                                <span class="text-success">Active</span>
+                                            {% else %}
+                                                Inactive
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Name</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{% url 'addName' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">First Name:</label>
+                            <input type="text" class="form-control" id="first_name" name="first_name"
+                                   value="{% if request.user.first_name != '' %} {{ user.first_name }}{% endif %}"
+                                   placeholder="First Name"
+                                   required>
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Last Name:</label>
+                            <input type="text" class="form-control" id="last_name" name="last_name"
+                                   value="{% if request.user.last_name != '' %} {{ user.last_name }}{% endif %}"
+                                   placeholder="Last Name" required>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

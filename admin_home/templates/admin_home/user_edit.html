@@ -1,0 +1,62 @@
+{% extends 'admin_home/admin_base.html' %}
+<!-- Content Row -->
+
+{% block body %}
+    <div class="container-fluid">
+
+
+
+
+      <div class="row">
+
+            <div class="col-xl-6 col-lg-7">
+                <div class="card shadow mb-8 offset-1">
+                    <!-- Card Header - Dropdown -->
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">Edit User Detail</h6>
+                        <a href="{% url 'userShow' %}">
+                            <button type="submit" class="btn btn-primary">Go Back</button>
+                        </a>
+                    </div>
+                    <!-- Card Body -->
+                    <div class="card-body">
+
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="Username">Username</label><br>
+                                {{form.username}}
+                                <br><br>
+
+                                <label for="Email">Email</label><br>
+                                {{form.email}}
+
+                                <br><br>
+
+                                <label for="Username">Is_Client:</label><br>
+                                {{form.is_client}}
+                                <br><br>
+
+
+                                <label for="Username">Is_Superuser</label><br>
+                                {{form.is_superuser}}
+                                <br>
+
+
+
+
+                            </div>
+
+
+                            <button type="submit" class="btn btn-success">Submit</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        </div>
+
+
+{% endblock %}

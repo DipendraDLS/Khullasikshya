@@ -1,0 +1,103 @@
+{% extends 'login_signup/base.html' %}
+
+{% load static %}
+
+{% load socialaccount %}
+{% providers_media_js %}
+
+
+{% block body %}
+    {% block style %}
+        <style>
+            a:link img {
+                transition: .2s;
+            }
+
+            a:link img:hover {
+                transform: scale(1.1);
+            }
+
+        </style>
+    {% endblock style %}
+    <body class="form-v6">
+    <div class="page-content">
+        <div class="form-v6-content">
+            <div class="form-left">
+                <img src="{% static 'login_signup/images/book.jpg' %}" alt="form" width="484" height="569">
+            </div>
+            <form class="form-detail" action="" method="post">
+                {% csrf_token %}
+
+                <a href="/"><img src="{% static 'images/logo_black.png' %}" width="150"></a>
+                <h2 class="font-weight-bold">Login Form</h2>
+
+
+                <div class="form-row">
+                    <i class="fa fa-user fa-lg icon"></i>
+                    <input type="text" name="username" id="username" class="input-text" placeholder="Username" required
+                           value="{% if form.username.value %}{{ form.username.value }}{% endif %}">
+                </div>
+
+                <div class="form-row">
+                    <i class="fa fa-key fa-lg icon"></i>
+                    <input type="password" name="password" id="password-field" class="input-text" placeholder="Password"
+                           required>
+                    <span toggle="#password-field" class="fa fa-fw fa-eye fa-lg field-icon toggle-password"
+                          title="show password"></span>
+                </div>
+
+                {% if messages %}
+
+                    {% for message in messages %}
+                        <script>
+                            Swal.fire(
+                                '{{msg}}!',
+                                '<span class="{{ msg_class }}">{{ message }}</span>',
+                                '{{msg_type}}'
+                            ).then(function () {
+
+                                location.href = "/login";
+
+
+                            });
+                        </script>
+
+                    {% endfor %}
+
+                {% endif %}
+                <div class="form-row-last">
+
+                    <input type="submit" name="register" class="register" value="Login"
+                           style="margin-top: 5px; margin-bottom: 20px">
+
+
+                </div>
+                <div style="width: 100%; height: 20px; border-bottom: 1px solid black; text-align: center; opacity: 0.4">
+                            <span style="font-size: 20px; background-color: white; padding: 5px 10px; color: black;">
+                                 or login with<!--Padding is optional-->
+                            </span>
+                </div>
+                <!-- Social Icons -->
+                <div class="social-icons" style="margin-top: 15px;">
+                    <a href="{% provider_login_url "facebook" method="oauth2" %}">
+                        <img src="{% static 'login_signup/images/fb.png' %}" width="50"></a>
+                    <a href="{% provider_login_url "google" %}"><img src="{% static 'login_signup/images/gp.png' %}"
+                                                                     width="50"></a>
+
+                </div>
+
+
+                <span style="color: black"> Don't have an account?
+                   <a href="{% url 'register' %}" style="text-decoration: none; color: #0088CC"> create one.</a>
+               </span><br>
+                <a href="{% url 'reset_password' %}" style="text-decoration: none; color: #0088CC">Forget Password?</a>
+
+
+            </form>
+
+
+        </div>
+    </div>
+
+
+{% endblock %}

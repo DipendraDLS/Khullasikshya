@@ -1,0 +1,43 @@
+{% extends 'admin_home/admin_base.html' %}
+{% load static %}
+
+{% block body %}
+    <div class="container-fluid">
+
+
+        <!-- Blog Edit Table -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <a href="{% url 'adminBlog' %}">
+                    <button type="submit" class="btn btn-primary">Back</button>
+                </a>
+            </div>
+            <div class="card-body">
+
+                <form action="" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.media }}
+                    <div class="form-group">
+                        <label for="Blog Title">Blog Title</label>
+                        {{ form.blog_title }}
+                    </div>
+                    <div class="form-group">
+                        <label for="Blog Content">Blog Content</label><br>
+                        {{ form.blog_content }}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Blog Content">Blog Image</label><br>
+                        {{ form.blog_image }}
+                    </div>
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+{% endblock %}

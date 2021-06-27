@@ -1,0 +1,137 @@
+{% extends 'admin_home/admin_base.html' %}
+{% load static %}
+{% block style %}
+    <style>
+        a:link {
+            text-decoration: none;
+        }
+    </style>
+{% endblock %}
+{% block body %}
+
+
+
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+        </div>
+
+        <!-- Count Rows -->
+        <div class="row">
+
+            <!-- User's Count -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">User's Count
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ user_count }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-user fa-2x text-primary"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Admin Count -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-success shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Admin's Count
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ admin_count }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-user-shield fa-2x text-success"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blog Count -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-info shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Blog's Count
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ blog_count }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-blog fa-2x text-info"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Level Row  -->
+        <h3>Levels</h3><br>
+        <div class="row">
+            <!-- All Available Levels -->
+            {% for level in levels %}
+                {% if level.level_name == 'Bachelor' %}
+                    <div class="col-md-3 mb-3">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3 border-left-primary d-flex justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-primary">
+                                    <img src="{% static 'images/bachelor.png' %}" width="25">
+
+                                    <a href="{% url 'adminViewFaculty' level.id %}">Bachelor</a>
+                                </h6>
+                            </div>
+                        </div>
+                    </div>
+                {% elif level.level_name == '+2|12' %}
+                    <div class="col-md-3 mb-3">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3 border-left-success d-flex justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-primary">
+                                    <img src="{% static 'images/college.png' %}" width="25">
+                                    <a href="{% url 'adminViewFaculty' level.id %}">+2|12</a>
+                                </h6>
+                            </div>
+                        </div>
+                    </div>
+                {% elif level.level_name == '+2|11' %}
+                    <div class="col-md-3 mb-3">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3 border-left-info d-flex justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-primary"><img
+                                        src="{% static 'images/college.png' %}" width="25">
+                                    <a href="{% url 'adminViewFaculty' level.id %}">+2|11</a>
+                                </h6>
+                            </div>
+                        </div>
+                    </div>
+                {% elif level.level_name == 'School' %}
+                    <div class="col-md-3 mb-3">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3 border-left-danger d-flex justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-primary">
+                                    <img src="{% static 'images/school.png' %}" width="25">
+                                    <a href="{% url 'adminViewFaculty' level.id %}">School</a>
+                                </h6>
+                            </div>
+                        </div>
+                    </div>
+
+                {% endif %}
+
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

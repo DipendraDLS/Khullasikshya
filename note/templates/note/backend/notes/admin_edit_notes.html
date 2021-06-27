@@ -1,0 +1,26 @@
+{% extends 'admin_home/admin_base.html' %}
+{% load static %}
+
+{% block body %}
+    <div class="container-fluid">
+        <!-- Blog Edit Table -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <a href="{% url 'adminViewResources' subject_id %}">
+                    <button type="submit" class="btn btn-primary">Back</button>
+                </a>
+            </div>
+            <div class="card-body">
+                <form action="" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}

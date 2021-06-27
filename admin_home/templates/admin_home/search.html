@@ -1,0 +1,122 @@
+{% extends 'admin_home/admin_base.html' %}
+{% load static %}
+
+{% block body %}
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <h1 class="h3 mb-1 text-gray-800">Search Results: </h1>
+
+
+                <!-- Content Row -->
+                <div class="row">
+                    {% if programs or blogs or notices %}
+                        {% if programs %}
+                            {% for program in programs %}
+
+                                <div class="col-md-6">
+
+                                    <div class="card mb-4 py-3 border-left-primary">
+                                        <div class="card-body">
+                                            <strong style="color: black">{{ program.p_title }}</strong>
+                                            <div class="float-right">
+                                                <a href="{% url 'programEdit' program.id %}"
+                                                   class="btn btn-warning  btn-md">Edit</a>
+                                                <form action="{% url 'programDelete' program.id %}" method="POST"
+                                                      class="d-inline">
+                                                    {% csrf_token %}
+                                                    <input type="submit" class="btn btn-danger" value="Delete"
+                                                           onclick="deleteNoticeFunction()">
+                                                </form>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                        {% if blogs %}
+                            {% for blog in blogs %}
+                                <!-- Border Left Utilities -->
+                                <div class="col-md-6">
+
+                                    <div class="card mb-4 py-3 border-left-primary">
+                                        <div class="card-body">
+                                            <strong style="color: black">{{ blog.blog_title }}</strong>
+                                            <div class="float-right">
+                                                <a href="{% url 'edit' blog.id %}"
+                                                   class="btn btn-warning  btn-md">Edit</a>
+                                                <form action="{% url 'delete' blog.id %}" method="POST"
+                                                      class="d-inline">
+                                                    {% csrf_token %}
+                                                    <input type="submit" class="btn btn-danger" value="Delete"
+                                                           onclick="deleteBlogFunction()">
+                                                </form>
+                                            </div>
+                                            <p>Created at: {{ blog.blog_created_at|date:"D d M Y" }}</p>
+
+
+                                        </div>
+
+
+                                    </div>
+
+
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                        {% if notices %}
+                            {% for notice in notices %}
+
+                                <div class="col-md-6">
+
+                                    <div class="card mb-4 py-3 border-left-primary">
+                                        <div class="card-body">
+                                            <strong style="color: black">{{ notice.notice_title }}</strong>
+                                            <div class="float-right">
+                                                <a href="{% url 'noticeEdit' notice.id %}"
+                                                   class="btn btn-warning  btn-md">Edit</a>
+                                                <form action="{% url 'noticeDelete' notice.id %}" method="POST"
+                                                      class="d-inline">
+                                                    {% csrf_token %}
+                                                    <input type="submit" class="btn btn-danger" value="Delete"
+                                                           onclick="deleteNoticeFunction()">
+                                                </form>
+                                            </div>
+                                            <p>Created at: {{ notice.notice_created_at|date:"D d M Y" }}</p>
+
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            {% endfor %}
+
+                        {% endif %}
+                    {% else %}
+                        <h4 style="margin-left: 50px;">No search result Found</h4>
+                    {% endif %}
+
+
+                </div>
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+{% endblock %}

@@ -1,0 +1,93 @@
+<!-- Add Faculty Modal-->
+<div class="modal fade" id="addSubjectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Subject</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'adminAddSubject' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="hidden" name="redirect_faculty_id" value="{{ faculty.id }}">
+                    <div class="form-group">
+                        <label for="subject_name">Subject Title</label>
+                        {{ form.subject_name }}
+                    </div>
+
+                    {% if faculty.level.level_name == 'Bachelor' %}
+                        <div class="form-group">
+
+                            <label for="subject_semester">Semester</label>
+                            {{ form.subject_semester }}
+
+                        </div>
+                    {% endif %}
+                    <div class="form-group">
+                        <label for="subject_description">Description</label>
+                        {{ form.subject_description }}
+                    </div>
+
+                    {% if faculty.level.level_name == 'Bachelor' %}
+                        <div class="form-group">
+                            <label for="year">Year</label>
+                            {{ form.year }}
+                        </div>
+                    {% endif %}
+
+                    {% if faculty.level.level_name != 'Bachelor' %}
+                        <div class="form-group">
+                            {% if faculty.level.level_name == '+2|12' %}
+                                <label for="grade">Grade</label>
+                                <input type="number" name="grade" class="form-control" required=""
+                                       id="id_grade" value=12 readonly="true">
+                            {% endif %}
+
+                            {% if faculty.level.level_name == '+2|11' %}
+                                <label for="grade">Grade</label>
+                                <input type="number" name="grade" class="form-control" required=""
+                                       id="id_grade" value=11 readonly="true">
+                            {% endif %}
+                            {% if faculty.level.level_name == 'School' %}
+                                <label for="grade">Grade</label>
+
+                                <input type="number" name="grade" class="form-control" min="1" max="10" required=""
+                                       id="id_grade">
+
+                            {% endif %}
+
+                        </div>
+                    {% endif %}
+                    <div class="form-group">
+                        <label for="subject_order">Subject Order</label>
+                        {{ form.subject_order }}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Faculty Name">Select Faculty</label>
+                        <select class="form-control my-select" data-show-subtext="true" data-live-search="true"
+                                id="faculty_name"
+                                name="faculty_name" required>
+                            <option value="{{ faculty.id }}">{{ faculty.faculty_name }}</option>
+
+
+                        </select>
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Add Subject</button>
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+

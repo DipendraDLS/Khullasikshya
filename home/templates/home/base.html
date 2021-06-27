@@ -1,0 +1,374 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Khullasikshya</title>
+
+    <!-- mobile responsive meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- ** Plugins Needed for the Project ** -->
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{% static 'home/bootstrap/bootstrap.min.css' %}">
+    <!-- slick slider -->
+    <link rel="stylesheet" href="{% static 'home/slick/slick.css' %}">
+
+    <!-- themefy-icon -->
+    <link rel="stylesheet" href="{% static 'home/css/themify-icons/themify-icons.css' %}">
+
+    <!-- animation css -->
+    <link rel="stylesheet" href="{% static 'home/css/animate/animate.css' %}">
+
+    <!-- aos -->
+    <link rel="stylesheet" href="{% static 'home/aos/aos.css' %}">
+
+    <!-- venobox popup -->
+    <link rel="stylesheet" href="{% static 'home/venobox/venobox.css' %}">
+
+    <!-- Main Stylesheet -->
+    <link href="{% static 'home/css/style.css' %}" rel="stylesheet">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="{% static 'images/logo.png' %}" type="image/x-icon">
+    <link rel="icon" href="{% static 'images/logo.png' %}" type="image/x-icon">
+
+    <!-- Font awesome -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <!--sweetify -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+    {# For Syntax Highlighter #}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.3.2/styles/atelier-seaside-light.css">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+
+</head>
+
+
+<style>
+    footer a:hover {
+        color: whitesmoke;
+    }
+</style>
+
+<body>
+
+<!-- header -->
+<header class="fixed-top header">
+    <!-- top header -->
+    <div class="top-header py-2 bg-white">
+        <div class="container">
+            <div class="row no-gutters">
+                <div class="col-lg-4 text-center text-lg-left">
+                    <a class="text-color mr-3" href="mailto:contact@khullasikshya.com"><strong>Email:</strong>
+                        contact@khullasikshya.com</a>
+                    <ul class="list-inline d-inline">
+                        <li class="list-inline-item mx-0"><a class="d-inline-block p-2 text-color"
+                                                             href="https://www.facebook.com/Utshuktech/?ref=page_internal"
+                                                             target="_blank"><i
+                                class="ti-facebook"></i></a></li>
+                        <li class="list-inline-item mx-0"><a class="d-inline-block p-2 text-color"
+                                                             href="https://www.instagram.com/utshuk.tech/"
+                                                             target="_blank"><i
+                                class="ti-instagram"></i></a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-8 text-center text-lg-right">
+                    <ul class="list-inline">
+                        <li class="list-inline-item"><a
+                                class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block"
+                                href="{% url 'notice' %}">notice</a>
+                        </li>
+
+                        <li class="list-inline-item"><a
+                                class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block"
+                                href="{% url 'contact' %}">CONTACT</a></li>
+
+
+
+                        {% if not request.user.is_authenticated %}
+                            <li class="list-inline-item"><a
+                                    class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block"
+                                    href="{% url 'login' %}"
+                            >login</a></li>
+                            <li class="list-inline-item"><a
+                                    class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block"
+                                    href="{% url 'register' %}">register</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- navbar -->
+    <div class="navigation w-100">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light p-0">
+                <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'images/logo.png' %}"
+                                                                     alt="logo"></a>
+                <button class="navbar-toggler rounded-0" type="button" data-toggle="collapse" data-target="#navigation"
+                        aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navigation">
+                    <ul class="navbar-nav ml-auto text-center">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'home' %}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'about' %}">About</a>
+                        </li>
+
+
+                        <li class="nav-item  dropdown view">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                               data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">
+                                Levels
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{% url 'bachelor' %}"><i
+                                        class="fas fa-user-graduate"></i> Bachelor</a>
+                                <hr class="mt-1" style="padding: 0">
+                                <a class="dropdown-item" href="{% url 'intermediate' %}"><i
+                                        class="fas fa-university"></i> +2</a>
+                                <hr class="mt-1" style="padding: 0">
+                                <a class="dropdown-item" href="{% url 'schoolLevel' %}"><i class="fas fa-school"></i>
+                                    School</a>
+
+                            </div>
+                        </li>
+
+                        <li class="nav-item ">
+                            <a class="nav-link" href="{% url 'blog' %}">BLOG</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'programmingHomePage' %}">
+                                Programming
+                            </a>
+
+
+                        </li>
+                        {% if request.user.is_authenticated %}
+
+                            <li class="nav-item dropdown no-arrow">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {{ request.user }}
+                                    <img class="img-profile rounded-circle" src="{{ user.image.url }}"
+                                         width="20">
+
+                                </a>
+
+                                <!-- Dropdown - User Information -->
+                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                     aria-labelledby="userDropdown">
+                                    <a class="dropdown-item" href="{% url 'profile' %}">
+                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Profile
+                                    </a>
+                                    {% if request.user.is_superuser %}
+                                        <a class="dropdown-item" href="{% url 'adminHome' %}">
+                                            <i class="fas fa-lock fa-sm fa-fw mr-2 text-gray-400"
+                                               style="color: red"></i>
+                                            Admin
+                                        </a>
+
+
+                                    {% endif %}
+
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Logout
+                                    </a>
+                                </div>
+                            </li>
+                        {% endif %}
+
+                        {#                        <li class="nav-item @@contact">#}
+                        {#                            <a class="nav-link" href="contact.html">CONTACT</a>#}
+                        {#                        </li>#}
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-footer">
+                <button class="btn btn-success" type="button" data-dismiss="modal">Cancel</button>
+                <form action="{% url 'logoutall' %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Logout</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /header -->
+
+
+{% block body %}
+
+{% endblock %}
+
+
+<!-- footer -->
+<footer>
+    <!-- newsletter -->
+    <div class="newsletter">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9 ml-auto bg-primary py-5 newsletter-block">
+                    <h3 class="text-white">Subscribe Now</h3>
+                    <form action="#">
+                        <div class="input-wrapper">
+                            <input type="email" class="form-control border-0" id="newsletter" name="newsletter"
+                                   placeholder="Enter Your Email...">
+                            <button type="submit" value=" " class="btn btn-primary">Join</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- footer content -->
+    <div class="footer bg-footer section border-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-sm-8 mb-5 mb-lg-0">
+                    <!-- logo -->
+                    <a class="logo-footer" href="{% url 'home' %}"><img class="img-fluid mb-4"
+                                                                        src="{% static 'images/logo.png' %}" alt="logo"></a>
+                    <ul class="list-unstyled">
+                        <a href="mailto:contact@khullasikshya.com">
+                            <li class="mb-2">contact@khullasikshya.com</li>
+                        </a>
+                    </ul>
+                </div>
+                <!-- company -->
+                <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-5 mb-md-0">
+                    <h4 class="text-white mb-5">COMPANY</h4>
+                    <ul class="list-unstyled">
+                        <li class="mb-3"><a class="text-color" href="https://utshuk.com" target="_blank">utshuk tech</a>
+                        </li>
+                        <li class="mb-3"><a class="text-color" href="https://utshuk.com/about/" target="_blank">about
+                            utshuk tech</a></li>
+
+                    </ul>
+                </div>
+                <!-- links -->
+                <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-5 mb-md-0">
+                    <h4 class="text-white mb-5">LINKS</h4>
+                    <ul class="list-unstyled">
+                        <li class="mb-3"><a class="text-color" href="{% url 'about' %}">About</a></li>
+                        <li class="mb-3"><a class="text-color" href="{% url 'blog' %}">Blog</a></li>
+                        <li class="mb-3"><a class="text-color" href="{% url 'notice' %}">Notice</a></li>
+                    </ul>
+                </div>
+                <!-- support -->
+                <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-5 mb-md-0">
+                    <h4 class="text-white mb-5">LEVELS</h4>
+                    <ul class="list-unstyled">
+                        <li class="mb-3"><a class="text-color" href="{% url 'bachelor' %}">Bachleor</a></li>
+                        <li class="mb-3"><a class="text-color" href="{% url 'intermediate' %}">Intermediate</a></li>
+                        <li class="mb-3"><a class="text-color" href="{% url 'schoolLevel' %}">School</a></li>
+                    </ul>
+                </div>
+                <!-- support -->
+                <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-5 mb-md-0">
+                    <h4 class="text-white mb-5">CHANNEL</h4>
+                    <ul class="list-unstyled">
+                        <li class="mb-3"><a class="text-color"
+                                            href="https://www.youtube.com/channel/UCRYV5HY4v9AE-GCnFshZqiA"
+                                            target="_blank">youtube channel</a></li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- copyright -->
+    <div class="copyright py-4 bg-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-7 text-sm-left text-center">
+                    <p class="mb-0">Copyright
+                        <script>
+                            var CurrentYear = new Date().getFullYear()
+                            document.write(CurrentYear)
+                        </script>
+                        {#                        © Theme By <a href="https://themefisher.com">themefisher.com</a></p>#}
+                        {#                    . All Rights Reserved.#}
+                        © <a href="https://khullasikshya.com">khullasikshya.com</a></p>
+                    . All Rights Reserved.
+                </div>
+                <div class="col-sm-5 text-sm-right text-center">
+                    <ul class="list-inline">
+                        <li class="list-inline-item"><a class="d-inline-block p-2"
+                                                        href="https://www.facebook.com/Utshuktech/?ref=page_internal"
+                                                        target="_blank"><i
+                                class="ti-facebook text-primary"></i></a></li>
+
+                        <li class="list-inline-item"><a class="d-inline-block p-2"
+                                                        href="https://www.instagram.com/utshuk.tech/" target="_blank"><i
+                                class="ti-instagram text-primary"></i></a></li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- /footer -->
+
+
+<!-- jQuery -->
+<script src="{% static 'home/jQuery/jquery.min.js' %}"></script>
+<!-- Bootstrap JS -->
+<script src="{% static 'home/bootstrap/bootstrap.min.js' %}"></script>
+<!-- slick slider -->
+<script src="{% static 'home/slick/slick.min.js' %}"></script>
+<!-- aos -->
+<script src="{% static 'home/aos/aos.js' %}"></script>
+<!-- venobox popup -->
+<script src="{% static 'home/venobox/venobox.min.js' %}"></script>
+
+<!-- mixitup filter -->
+<script src="{% static 'home/mixitup/mixitup.min.js' %}"></script>
+
+
+<!-- Main Script -->
+<script src="{% static 'home/js/script.js' %}"></script>
+
+<!-- Aos.init Animation -->
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+<script>
+    AOS.init();
+</script>
+
+
+</body>
+</html>

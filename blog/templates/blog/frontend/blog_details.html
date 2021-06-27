@@ -1,0 +1,248 @@
+{% extends 'home/base.html' %}
+
+{% load static %}
+{% load humanize %}     {# for time to be shown x days ago #}
+{% load extras %}       {# For the custom templatetag that we have made in extras.py #}
+{% block body %}
+
+    <!-- page title -->
+    <section class="page-title-section overlay" data-background="{% static 'home/images/backgrounds/page-title.jpg' %}">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <ul class="list-inline custom-breadcrumb">
+                        <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="{% url 'blog' %}">
+                            <b>Our Blog</b>
+                        </a></li>
+                        <li class="list-inline-item text-white h3 font-secondary nasted">Blog Details</li>
+                    </ul>
+                    <p class="text-lighten">Our blog provides detail about programming, technology, projects and many
+                        more.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /page title -->
+
+    <!-- blog details -->
+    <section class="section-sm bg-gray">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <img src="{{ blog_content.blog_image.url }}" alt="blog-thumb" class="img-fluid w-75">
+                </div>
+                <div class="col-12">
+                    <ul class="list-inline">
+                        <li class="list-inline-item mr-4 mb-3 mb-md-0 text-light"><span class="font-weight-bold mr-2">Post:</span>{{ blog_content.user.first_name|capfirst }}
+                        </li>
+                        <li class="list-inline-item mr-4 mb-3 mb-md-0 text-light">{{ blog_content.blog_created_at|date:"d M Y, D" }}</li>
+                        <li class="list-inline-item mr-4 mb-3 mb-md-0 text-light"><i class="ti-book mr-2"></i>Read 289
+                        </li>
+
+                    </ul>
+                </div>
+                <!-- border -->
+                <div class="col-12 mt-4">
+                    <div class="border-bottom border-primary"></div>
+                </div>
+                <!-- blog contect -->
+                <div class="col-12 mb-5">
+                    <h2>{{ blog_content.blog_title }}</h2>
+                    <div class="code-content">
+                        <p align="justify" style="text-align: justify;"> {{ blog_content.blog_content|safe }}</p>
+                    </div>
+                </div>
+
+                <!-- comment box -->
+                <div class="col-12">
+                    <hr>
+                    <h4>Comments ({{ comments.count }}):</h4>
+                    {% if user.is_authenticated %}
+                        <form action="{% url 'blogComment' %}" class="row" method="POST">
+                            {% csrf_token %}
+                            <div class="col-12">
+
+
+                                <textarea name="comment" id="comment" class="form-control mb-4"
+                                          placeholder="Add a public comment..." style="height: 100px"></textarea>
+                                <input type="hidden" name="blogId" value="{{ blog_content.id }}">
+                                <input type="hidden" name="commentId" value="">
+                                <!-- This is nedded in views.py to check if else condition.As this is not reply its a comment so value has no any commentId.-->
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" value="send" class="btn btn-sm btn-primary">post comment</button>
+                            </div>
+                        </form>
+                    {% else %}
+
+                        <div class="alert alert-info">
+                            <strong>Info! </strong>Please login to post a comment.
+                        </div>
+
+
+
+                    {% endif %}
+
+                </div>
+
+
+            </div>
+            {# Posted comments  #}
+            <hr>
+            {% for comment in comments %}
+                <div class="row my-3">
+                    <div class="col-md-12">
+                        <img class="rounded " src="{{ comment.user.image.url }}"
+                             alt="user" width="50">
+
+                        <span style="margin-left: 15px">
+                            <b style="font-size: 18px; color: black">{{ comment.user.username|capfirst }}</b>
+                            <span style="font-size: 12px"
+                                  class="badge badge-secondary"> {{ comment.timestamp|naturaltime }}</span>
+                        </span>
+                        <div style="margin-left:70px; color: black">{{ comment.comment }}</div>
+                        <div class="reply mx-0 my-2">
+                            {% if user.is_authenticated %}
+
+
+                                <button type="button" style="margin-left: 70px; border: none; background: lightgrey;"
+                                        data-toggle="collapse"
+                                        data-target="#replyBox{{ comment.id }}" aria-expanded="false"
+                                        aria-controls="replyBox{{ comment.id }}">
+                                    REPLY
+                                </button>
+
+                                <div style="margin-left: 70px;" class="collapse" id="replyBox{{ comment.id }}">
+                                    <div class="card card-body my-2">
+
+                                        {# For Posting Reply Form #}
+                                        <form action="{% url 'blogComment' %}" class="row" method="POST">
+                                            {% csrf_token %}
+                                            <div class="col-12">
+                                            <textarea name="comment" id="comment" class="form-control mb-4"
+                                                      placeholder="Add a public reply..."
+                                                      style="height: 80px"></textarea>
+                                                <input type="hidden" name="blogId" value="{{ blog_content.id }}">
+                                                <input type="hidden" name="commentId" value="{{ comment.id }}">
+                                                <!-- This is the reply for particular comment so we have to give comment id as well.-->
+                                            </div>
+                                            <div class="col-12">
+                                                <button type="submit" value="send" class="btn btn-sm btn-primary">REPLY
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <a href="{% url 'login' %}"
+                                   style="margin-left: 70px; border: none; background-color: lightgrey; color: black">
+                                    Login to Reply
+                                </a>
+
+                            {% endif %}
+                            <div class="replies my-2" style="margin-left: 70px; color: black">
+                                {% for reply in replyDict|get_val:comment.id %}
+                                    <!-- yo "get_val:comment.id" hamiley customly afai banayeko templatetag ho jasle chai comment ko id ko adhar ma kun replies kun comment ko ho vanera 'replyDict' dictionary bata nikalna help garcha. -->
+                                    <!-- custom template tag chai "blog/templatetag/extras.py" ma cha-->
+
+
+
+                                    <div class="row my-3">
+                                        <div class="col-md-12">
+                                            <img class="rounded " src="{{ reply.user.image.url }}"
+                                                 alt="user" width="30">
+                                            <span style="margin-left: 15px">
+                                                <b style="font-size: 14px; color: black">{{ reply.user.username|capfirst }}</b>
+                                                <span style="font-size: 12px"> {{ reply.timestamp|naturaltime }}</span>
+                                            </span>
+
+                                            <div style="margin-left:50px; color: black">{{ reply.comment }}</div>
+
+                                        </div>
+                                    </div>
+
+                                {% endfor %}
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            {% endfor %}
+        </div>
+    </section>
+    <!-- /blog details -->
+
+    <!-- recommended post -->
+    <section class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="section-title">Latest Blog</h2>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <!-- blog post -->
+
+                {% for blog in latest_blog|slice:3 %}
+
+                    <article class="col-lg-4 col-sm-6 mb-5 mb-lg-0" data-aos="zoom-in">
+                        <div class="card rounded-0 border-bottom border-primary hover-shadow">
+                            <img class="card-img-top rounded-0" src="{{ blog.blog_image.url }}" alt="Post thumb">
+                            <div class="card-body">
+                                <!-- post meta -->
+                                <ul class="list-inline mb-3">
+                                    <!-- post date -->
+                                    <li class="list-inline-item mr-3 ml-0">{{ blog.blog_created_at|date:"d M Y, D" }}</li>
+                                    <br>
+                                    <!-- author -->
+                                    <li class="list-inline-item mr-3 ml-0">Posted by: {{ blog.user.first_name|capfirst }}</li>
+                                </ul>
+                                <a href="blog-single.html">
+                                    <h4 class="card-title">{{ blog.blog_title }}</h4>
+                                </a>
+                                <p>{{ blog.blog_content| truncatewords_html:10|striptags|safe }}</p>
+                                <a href="{% url 'blogDetail' blog.id %}" class="btn btn-primary btn-sm">read more</a>
+                            </div>
+                        </div>
+                    </article>
+                {% endfor %}
+
+
+            </div>
+        </div>
+    </section>
+    <!-- /recommended post -->
+
+
+    {# For Syntax highlighter    #}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/highlight.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.8.0/src/highlightjs-line-numbers.min.js"></script>
+    <script>
+        hljs.initHighlightingOnLoad();
+        hljs.initLineNumbersOnLoad();
+    </script>
+    <!-- This is the copy add this badge component -->
+    <script src="{% static 'programming/highlightjs-bladge.min.js' %}"></script>
+    <script>
+        // apply HighlightJS
+        var pres = document.querySelectorAll("pre>code");
+        for (var i = 0; i < pres.length; i++) {
+            hljs.highlightBlock(pres[i]);
+        }
+        // add HighlightJS-badge (options are optional)
+        var options = {   // optional
+            contentSelector: ".code-content",
+
+            // CSS class(es) used to render the copy icon.
+            copyIconClass: "fas fa-copy",
+            // CSS class(es) used to render the done icon.
+            checkIconClass: "fas fa-check text-success"
+        };
+        window.highlightJsBadge(options);
+    </script>
+
+
+{% endblock %}

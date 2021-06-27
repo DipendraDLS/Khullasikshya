@@ -1,0 +1,236 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+
+{% block body %}
+    {% block style %}
+        <style>
+            a:first-child img {
+                transition: .2s;
+            }
+
+            a:first-child img:hover {
+                transform: scale(1.1);
+            }
+
+            a h3:hover {
+                color: green;
+            }
+
+            .accordion .card-header h3:after {
+                font-family: 'FontAwesome';
+                content: "-";
+                float: right;
+            }
+
+            .accordion .card-header.collapsed h3:after {
+                /* symbol for "collapsed" panels */
+                content: "+";
+            }
+
+
+        </style>
+
+    {% endblock %}
+
+
+    <!-- page title -->
+    <section class="page-title-section overlay" data-background="{% static 'home/images/backgrounds/page-title.jpg' %}">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <ul class="list-inline custom-breadcrumb">
+                        <li class="list-inline-item"><a class="h2 text-primary font-secondary"
+                                                        href="{% url 'intermediate' %}"><strong>{{ subject.faculty.faculty_name }}</strong>
+                        </a></li>
+                        <li class="list-inline-item text-white h3 font-secondary nasted">
+                            {% if subject.grade == 12 %}
+                                <a href="{% url 'intermediateTwelveSubjects' subject.faculty_id %}"
+                                   class="h3 text-primary font-secondary">
+                                    <b>Subjects</b>
+                                </a>
+                            {% elif subject.grade == 11 %}
+                                <a href="{% url 'intermediateElevenSubjects' subject.faculty_id %}"
+                                   class="h3 text-primary font-secondary">
+                                    <b>Subjects</b>
+
+
+                                </a>
+                            {% endif %}
+
+                        </li>
+                        <li class="list-inline-item text-white h3 font-secondary nasted">{{ subject.subject_name }}</li>
+
+                    </ul>
+                    <p class="text-lighten">We provide free notes, syllabus, past paper questions along with it's
+                        solution which can be really helpful during your entire bachelor life.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /page title -->
+
+    <div class="container mt-5">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+
+                <div style="display: flex; justify-content: space-between">
+                    <h6 class="m-0 font-weight-bold">{{ subject.subject_name }}</h6>
+
+                    {% if subject.grade == 12 %}
+                        <a href="{% url 'intermediateTwelveSubjects' subject.faculty_id %}" class="btn btn-primary"><i
+                                class="fas fa-backward"></i> Subjects</a>
+                    {% elif subject.grade == 11 %}
+                        <a href="{% url 'intermediateElevenSubjects' subject.faculty_id %}" class="btn btn-primary"><i
+                                class="fas fa-backward"></i> Subjects</a>
+
+                    {% endif %}
+
+
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="topic-details">
+                    <a href="#">
+                        <img src="{{ subject.photo_url }}"        {# photo_url is in models.py #}
+                             alt="Faculty Image" width="100">
+                        <h3 style="font-weight: 900"> {{ subject.subject_name }}</h3>
+                    </a><br>
+                    <div class="details">
+                        <h5>
+                            Level : {{ subject.faculty.level.level_name }}
+                        </h5>
+                        <h5>
+                            Faculty: {{ subject.faculty.faculty_name }}
+                        </h5>
+
+
+                    </div>
+
+                </div>
+                <hr>
+
+                <div id="accordion" class="accordion">
+
+
+                    <!-- For Notes -->
+                    <div class="card-header collapsed shadow mb-3" data-toggle="collapse" href="#collapseOne">
+                        <a class="card-title">
+                            <h3><i class="fas fa-book  text-info"></i> Notes</h3>
+                        </a>
+                    </div>
+                    <div id="collapseOne" class="card-body collapse show" data-parent="#accordion">
+                        <div class="row">
+                            {% if notes %}
+                                {% for note in notes %}
+                                    <div class="col-md-4">
+                                        <a href="{{ note.document.url }}"
+                                           target="_blank">
+                                            <img src="{{ note.photo_url }}" width="80"><br>
+                                            <h5>{{ note.note_title }}</h5>
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                <div class="alert alert-info">
+                                    <strong>Not available!</strong> We will add Notes as soon as possible.
+                                </div>
+
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- For Syllabus -->
+                    <div class="card-header collapsed shadow mb-3" data-toggle="collapse" data-parent="#accordion"
+                         href="#collapseTwo">
+                        <a class="card-title">
+                            <h3><i class="far fa-clipboard  text-info"></i> Syllabus</h3>
+                        </a>
+                    </div>
+                    <div id="collapseTwo" class="card-body collapse" data-parent="#accordion">
+                        <div class="row">
+                            {% if syllabus %}
+                                {% for syllabus in syllabus %}
+                                    <div class="col-md-4">
+                                        <a href="{{ syllabus.document.url }}"
+                                           target="_blank">
+                                            <img src="{{ syllabus.photo_url }}" width="80"><br>
+                                            <h5>{{ syllabus.syllabus_title }}</h5>
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                <div class="alert alert-info">
+                                    <strong>Not available!</strong> We will add Syllabus as soon as possible.
+                                </div>
+
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- For PQ -->
+                    <div class="card-header collapsed shadow mb-3" data-toggle="collapse" data-parent="#accordion"
+                         href="#collapseThree">
+                        <a class="card-title">
+                            <h3><i class="fas fa-question-circle text-info"></i> Past Questions</h3>
+
+                        </a>
+                    </div>
+                    <div id="collapseThree" class="card-body collapse" data-parent="#accordion">
+                        <div class="row">
+                            {% if past_question %}
+                                {% for pq in past_question %}
+                                    <div class="col-md-4">
+                                        <a href="{{ pq.document.url }}"
+                                           target="_blank">
+                                            <img src="{{ pq.photo_url }}" width="80"><br>
+                                            <h5>{{ pq.pq_title }}</h5>
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                <div class="alert alert-info">
+                                    <strong>Not available!</strong> We will add Past Question as soon as possible.
+                                </div>
+
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- For PQS -->
+                    <div class="card-header collapsed shadow mb-3" data-toggle="collapse" data-parent="#accordion"
+                         href="#collapseFour">
+                        <a class="card-title">
+                            <h3><i class="fas fa-edit text-info"></i> Solutions</h3>
+
+                        </a>
+                    </div>
+                    <div id="collapseFour" class="card-body collapse" data-parent="#accordion">
+                        <div class="row">
+                            {% if past_question_solution %}
+                                {% for pqs in past_question_solution %}
+                                    <div class="col-md-4">
+                                        <a href="{{ pqs.document.url }}"
+                                           target="_blank">
+                                            <img src="{{ pqs.photo_url }}" width="80"><br>
+                                            <h5>{{ pqs.pqs_title }}</h5>
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                <div class="alert alert-info">
+                                    <strong>Not available!</strong> We will add Solution as soon as possible.
+                                </div>
+
+                            {% endif %}
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

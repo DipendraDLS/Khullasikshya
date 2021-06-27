@@ -1,0 +1,202 @@
+{% extends 'admin_home/admin_base.html' %}
+{% load static %}
+
+
+{% block body %}
+
+
+
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">User Details</h1>
+        </div>
+
+        <!-- Content Row -->
+        <div class="row">
+
+            <!-- User Counts -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">User's Count
+
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">  {{ user_count }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-user fa-2x " style="color: cornflowerblue"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-success shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Admin's Count
+
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-black-800">  {{ admin_count }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-user-shield fa-2x " style="color: green"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+
+                <div style="float: right">
+                    <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#addUserModal">
+                        <i class="fas fa-user"></i> Add User
+                    </button>
+                </div>
+                <h6 class="m-0 font-weight-bold text-primary">User's Detail Table</h6>
+
+
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    {% if users %}
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+
+                            <thead>
+                            <tr class="text-center">
+                                <th scope="col">ID</th>
+                                <th scope="col">Username</th>
+
+                                <th scope="col">Email</th>
+                                <th scope="col">Date_Joined</th>
+                                <th scope="col">Is_Admin</th>
+                                <th scope="col">Is_Client</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+
+                                {% for user in users %}
+
+                                    <th scope="row" class="text-center">{{ user.id }}</th>
+                                    <th scope="row" class="text-center">{{ user.username }}</th>
+
+                                    <td class="text-center">{{ user.email }}</td>
+                                    <td class="text-center">{{ user.date_joine }}</td>
+                                    {% if user.is_superuser == True %}
+                                        <td class="text-center">
+                                            <img src="{% static 'images/user_active.png' %}" alt="True" width="50">
+                                        </td>
+                                    {% else %}
+                                        <td class="text-center">
+                                            <img src="{% static 'images/user_deactive.png' %}" alt="False" width="50">
+                                        </td>
+                                    {% endif %}
+
+                                    {% if user.is_client == True %}
+                                        <td class="text-center">
+                                            <img src="{% static 'images/user_active.png' %}" alt="True" width="50">
+                                        </td>
+                                    {% else %}
+                                        <td class="text-center">
+                                            <img src="{% static 'images/user_deactive.png' %}" alt="False" width="50">
+                                        </td>
+                                    {% endif %}
+
+
+
+                                    <td class="text-center">
+                                        <a href="{% url 'userEdit' user.id %}" class="btn btn-warning btn-md">Edit</a>
+                                        <!-- To delete the data using POST method will be the secured one.  -->
+                                        <form action="{% url 'userDelete' user.id %}" method="POST" class="d-inline">
+                                            {% csrf_token %}
+
+                                            <button type="submit" class="btn btn-danger" onclick="deleteFunction()">
+                                                Delete
+                                            </button>
+                                        </form>
+
+                                    </td>
+
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+
+
+                        </table>
+                    {% else %}
+                        <div class="alert alert-info">
+                            <strong>Info!</strong> No User Record Available!
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!-- Add User Modal-->
+    <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Not Implemented Yet!!</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">No any implementation for adding users.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="#">Add User</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {% block script %}
+
+        <!-- Sweet alert Link -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+        <link rel="stylesheet" type="text/css"
+              href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+        <script>
+            function deleteFunction() {
+                event.preventDefault(); // prevent form submit
+                let form = event.target.form; // storing the form
+                swal({
+                        title: "Are you sure you want to delete user with username {{ user.username }}?",
+                        text: "Once it's done it can't be undone.",
+                        type: "warning",
+                        showCancelButton: true,
+                        cancelButtonColor: "#FFF",
+                        confirmButtonColor: "#dd6b55",
+                        confirmButtonText: "Yes, Delete it!",
+                        cancelButtonText: "No, cancel please!",
+                        closeOnConfirm: false,
+                        closeOnCancel: false
+                    },
+                    function (isConfirm) {
+                        if (isConfirm) {
+                            form.submit();          // submitting the form when user press yes
+                        } else {
+                            swal("Cancelled", "User: {{ user.username }} not deleted. ", "error");
+                        }
+                    });
+            }
+        </script>
+    {% endblock %}
+{% endblock %}

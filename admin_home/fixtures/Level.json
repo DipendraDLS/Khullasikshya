@@ -1,0 +1,46 @@
+[
+{
+    "model": "note.level",
+    "pk": 1,
+    "fields": {
+        "level_name": "Bachelor",
+        "level_image": "uploads/bachelor.png",
+        "level_order": 1,
+        "level_created_at": "2020-11-07T06:35:47.918Z",
+        "level_updated_at": "2020-11-08T11:01:23.934Z"
+    }
+},
+{
+    "model": "note.level",
+    "pk": 2,
+    "fields": {
+        "level_name": "+2|12",
+        "level_image": "uploads/college.png",
+        "level_order": 2,
+        "level_created_at": "2020-11-07T06:36:11.793Z",
+        "level_updated_at": "2020-11-08T11:01:44.135Z"
+    }
+},
+{
+    "model": "note.level",
+    "pk": 3,
+    "fields": {
+        "level_name": "+2|11",
+        "level_image": "uploads/college_NEnbDP0.png",
+        "level_order": 3,
+        "level_created_at": "2020-11-07T06:36:27.056Z",
+        "level_updated_at": "2020-11-08T11:01:57.429Z"
+    }
+},
+{
+    "model": "note.level",
+    "pk": 4,
+    "fields": {
+        "level_name": "School",
+        "level_image": "uploads/school.png",
+        "level_order": 4,
+        "level_created_at": "2020-11-07T06:36:41.879Z",
+        "level_updated_at": "2020-11-08T11:02:09.559Z"
+    }
+}
+]

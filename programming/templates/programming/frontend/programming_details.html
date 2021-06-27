@@ -1,0 +1,347 @@
+{% extends 'home/base.html' %}
+
+{% load static %}
+
+{% block body %}
+    {# For Layout of left, right and middle    #}
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
+
+
+    {% block style %}
+        <style>
+            .scroll {
+                overflow: auto;
+                height: 175px;
+            }
+
+            /* width */
+            ::-webkit-scrollbar {
+                width: 6px;
+
+            }
+
+
+            /* Track */
+            ::-webkit-scrollbar-track {
+                background: #f1f1f1;
+
+            }
+
+            /* Handle */
+            ::-webkit-scrollbar-thumb {
+                background: #888;
+
+            }
+
+            /* Handle on hover */
+            ::-webkit-scrollbar-thumb:hover {
+                background: #555;
+
+            }
+
+            p {
+                text-align: justify;
+            }
+
+            /* for iframe container  */
+            .iframe_container {
+                position: relative;
+                width: 100%;
+                overflow: hidden;
+                padding-top: 56.25%;
+                /* 16:9 Aspect Ratio */
+            }
+
+            .responsive-iframe {
+                position: absolute;
+                top: 10px;
+                left: 0;
+                bottom: 0;
+                right: 0;
+                width: 100%;
+                height: 100%;
+                border: none;
+            }
+
+            /* left side bar ancho tag style */
+            .scroll a {
+                display: block;
+                color: black;
+                font-size: 15px;
+                text-align: left;
+                text-decoration: none;
+            }
+
+            .scroll a.active {
+                background-color: #4CAF50;
+                color: white;
+                text-decoration: none;
+
+            }
+
+            .scroll a:hover:not(.active) {
+                background-color: #555;
+                color: white;
+                text-decoration: none;
+
+            }
+
+
+            .nav-bg {
+                margin-top: -48px;
+            }
+
+            {# for line numbers in highlight js#}
+            .hljs-ln-n {
+                margin-right: 15px;
+            }
+
+            {# For Copy badge#}
+            .code-badge {
+                margin-top: 25px;
+                padding: 8px !important;
+                background: skyblue !important;
+
+            }
+
+
+            .code-badge-copy-icon {
+                font-size: 1.3em !important;
+            }
+
+        </style>
+    {% endblock %}
+
+
+    <!-- page title -->
+    <section class="page-title-section overlay" data-background="{% static 'home/images/backgrounds/page-title.jpg' %}">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <ul class="list-inline custom-breadcrumb">
+                        <li class="list-inline-item"><a class="h2 text-primary font-secondary "
+                                                        href="{% url 'programmingHomePage' %}">
+                            <b>Programming</b></a></li>
+                        <li class="list-inline-item text-white h3 font-secondary @@nasted"></li>
+                    </ul>
+                    <p class="text-lighten">We provide codes along with video tutorial for Java, PHP, Python, JavaScript
+                        and many more other programming language. </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /page title -->
+
+    <!-- Page Container -->
+
+    <div class="w3-container w3-content" style="max-width:1400px; margin-top:25px;">
+        <!-- The Grid -->
+        <div class="w3-row">
+            <!-- Left Column -->
+            <div class="w3-col m3">
+                <!-- COURSE Title -->
+                <div class="w3-card w3-round w3-white">
+                    <div class="w3-container" style="background-image: linear-gradient(to left,#005580, #5f1782)"
+                         ;>
+                        <p class="w3-center"><img src="{% static 'images/course.png' %}"
+                                                  style="height:110px;width:130px"
+                                                  alt="Courses"></p>
+
+                    </div>
+                </div>
+                <!-- Left Sidebar -->
+
+                <div class="w3-card w3-round">
+                    <div class="w3-white">
+
+                        <button onclick="myFunction('Demo1')" class="w3-button w3-block w3-theme-l1 w3-left-align">
+                            <i class="fa fa-book fa-fw w3-margin-right"></i><span style="font-size: 16px">Java</span>
+                        </button>
+
+                        <div id="Demo1" class="w3-hide w3-container">
+                            <div class="scroll">
+                                <br>
+                                {% for program in java_programs %}
+                                    <a href="{% url 'programmingDetails' program.id %}">{{ program.p_title }}</a>
+                                    <hr class="mt-0">
+                                {% endfor %}
+
+
+                            </div>
+                        </div>
+                        <button onclick="myFunction('Demo2')" class="w3-button w3-block w3-theme-l1 w3-left-align">
+                            <i
+                                    class="fa fa-book fa-fw w3-margin-right"></i><span style="font-size: 16px"> JavaScript</span>
+                        </button>
+                        <div id="Demo2" class="w3-hide w3-container">
+                            <div class="scroll">
+                                <br>
+                                {% for program in js_programs %}
+                                    <a href="{% url 'programmingDetails' program.id %}">{{ program.p_title }}</a>
+                                    <hr class="mt-0">
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                        <button onclick="myFunction('Demo3')" class="w3-button w3-block w3-theme-l1 w3-left-align">
+                            <i
+                                    class="fa fa-book fa-fw w3-margin-right"></i><span
+                                style="font-size: 16px">PHP</span>
+                        </button>
+                        <div id="Demo3" class="w3-hide w3-container">
+                            <div class="scroll">
+                                <br>
+                                {% for program in php_programs %}
+                                    <a href="{% url 'programmingDetails' program.id %}">{{ program.p_title }}</a>
+                                    <hr class="mt-0">
+                                {% endfor %}
+
+
+                            </div>
+                        </div>
+                        <button onclick="myFunction('Demo4')" class="w3-button w3-block w3-theme-l1 w3-left-align">
+                            <i
+                                    class="fa fa-book fa-fw w3-margin-right"></i><span
+                                style="font-size: 16px">Python</span>
+                        </button>
+                        <div id="Demo4" class="w3-hide w3-container">
+                            <div class="scroll">
+                                <br>
+                                {% for program in python_programs %}
+                                    <a href="{% url 'programmingDetails' program.id %}">{{ program.p_title }}</a>
+                                    <hr class="mt-0">
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <br>
+                <!-- End Left Column -->
+            </div>
+
+            <!-- Middle Column -->
+            <div class="w3-col m7">
+
+                <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
+                    <h6 class="w3-opacity">{{ program.p_language.language_type }} </h6>
+                    {{ program.p_title }}
+
+                    <pre>
+                        <code class="{{ program.p_language.language_type }} ">
+                           {{ program.p_code|safe }}
+                        </code>
+                    </pre>
+                    <hr class="w3-clear">
+                </div>
+
+                <!-- End Middle Column -->
+            </div>
+
+            <!-- Right Column -->
+            <div class="w3-col m2">
+                <div class="w3-card w3-round w3-white w3-center">
+                    <div class="w3-container">
+                        <h6 style="font-weight: bold;">YOUTUBE CHANNEL</h6>
+                        <hr class="solid">
+                        <div class="iframe_container">
+                            <iframe class="responsive-iframe" src="https://www.youtube.com/embed/4-n3x0tcgqQ"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen></iframe>
+                        </div>
+                        <p><a href="https://www.youtube.com/channel/UCRYV5HY4v9AE-GCnFshZqiA" target="_blank">
+                            <button class="w3-button w3-block w3-red w3-section ">SUBSCRIBE</button>
+                        </a>
+                        </p>
+                    </div>
+                </div>
+                <br>
+
+                <div class="w3-card w3-round w3-white w3-center">
+                    <div class="w3-container">
+                        <h6 style="font-weight: bold;">{{ program.p_title }}</h6>
+                        <hr class="solid">
+                        <div class="iframe_container">
+                            <iframe class="responsive-iframe" src="{{ program.p_link }}"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen></iframe>
+                        </div>
+                        <p><a href="{{ program.p_link }}">
+                            <button class="w3-button w3-block w3-green w3-section ">Watch Video</button>
+                        </a>
+                        </p>
+                    </div>
+                </div>
+                <br>
+                <!-- End Right Column -->
+            </div>
+
+            <!-- End Grid -->
+        </div>
+    </div>
+
+    <!-- End Page Container -->
+
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src=" https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous">
+    </script>
+
+    {# For Syntax highlighter    #}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/highlight.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.8.0/src/highlightjs-line-numbers.min.js"></script>
+    <script>
+        hljs.initHighlightingOnLoad();
+        hljs.initLineNumbersOnLoad();
+    </script>
+    <!-- This is the copy add this badge component -->
+    <script src="{% static 'programming/highlightjs-bladge.min.js' %}"></script>
+    <script>
+        // apply HighlightJS
+        var pres = document.querySelectorAll("pre>code");
+        for (var i = 0; i < pres.length; i++) {
+            hljs.highlightBlock(pres[i]);
+        }
+        // add HighlightJS-badge (options are optional)
+        var options = {   // optional
+            contentSelector: ".w3-container",
+
+            // CSS class(es) used to render the copy icon.
+            copyIconClass: "fas fa-copy",
+            // CSS class(es) used to render the done icon.
+            checkIconClass: "fas fa-check text-success"
+        };
+        window.highlightJsBadge(options);
+    </script>
+
+
+
+
+    <script>
+        // Leftbar Menu in Action
+        function myFunction(id) {
+            var x = document.getElementById(id);
+            if (x.className.indexOf("w3-show") == -1) {
+                x.className += " w3-show";
+                x.previousElementSibling.className += " w3-theme-d1";
+            } else {
+                x.className = x.className.replace("w3-show", "");
+                x.previousElementSibling.className =
+                    x.previousElementSibling.className.replace(" w3-theme-d1", "");
+            }
+        }
+
+        $(function () {
+            $('a').click(function () {
+                $('a.active').removeClass('active');
+                $(this).addClass('active');
+            });
+        });
+    </script>
+{% endblock %}

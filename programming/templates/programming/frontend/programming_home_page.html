@@ -1,0 +1,371 @@
+{% extends 'home/base.html' %}
+
+{% load static %}
+
+{% block body %}
+    {# For Layout of left, right and middle    #}
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
+
+    {% block style %}
+        <style>
+            .scroll {
+                overflow: auto;
+                height: 175px;
+            }
+
+            /* width */
+            ::-webkit-scrollbar {
+                width: 6px;
+
+            }
+
+
+            /* Track */
+            ::-webkit-scrollbar-track {
+                background: #f1f1f1;
+
+            }
+
+            /* Handle */
+            ::-webkit-scrollbar-thumb {
+                background: #888;
+
+            }
+
+            /* Handle on hover */
+            ::-webkit-scrollbar-thumb:hover {
+                background: #555;
+
+            }
+
+            p {
+                text-align: justify;
+            }
+
+            /* for iframe container  */
+            .iframe_container {
+                position: relative;
+                width: 100%;
+                overflow: hidden;
+                padding-top: 56.25%;
+                /* 16:9 Aspect Ratio */
+            }
+
+            .responsive-iframe {
+                position: absolute;
+                top: 10px;
+                left: 0;
+                bottom: 0;
+                right: 0;
+                width: 100%;
+                height: 100%;
+                border: none;
+            }
+
+            /* left side bar ancho tag style */
+            .scroll a {
+                display: block;
+                color: black;
+                font-size: 15px;
+                text-align: left;
+                text-decoration: none;
+            }
+
+            .scroll a.active {
+                background-color: #4CAF50;
+                color: white;
+                text-decoration: none;
+
+            }
+
+            .scroll a:hover:not(.active) {
+                background-color: #555;
+                color: white;
+                text-decoration: none;
+
+            }
+
+            .nav-bg {
+                margin-top: -48px;
+            }
+
+
+        </style>
+    {% endblock %}
+
+    <!-- page title -->
+    <section class="page-title-section overlay" data-background="{% static 'home/images/backgrounds/page-title.jpg' %}">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <ul class="list-inline custom-breadcrumb">
+                        <li class="list-inline-item"><a class="h2 text-primary font-secondary "
+                                                        href="{% url 'programmingHomePage' %}">
+                            <b>Programming</b></a></li>
+                        <li class="list-inline-item text-white h3 font-secondary @@nasted"></li>
+                    </ul>
+                    <p class="text-lighten">We provide codes along with video tutorial for Java, PHP, Python, JavaScript
+                        and many more other programming language. </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /page title -->
+
+
+    <!-- Page Container -->
+
+    <div class="w3-container w3-content" style="max-width:1400px; margin-top:25px;">
+        <!-- The Grid -->
+        <div class="w3-row">
+            <!-- Left Column -->
+            <div class="w3-col m3">
+                <!-- COURSE Title -->
+                <div class="w3-card w3-round w3-white">
+                    <div class="w3-container" style="background-image: linear-gradient(to left,#005580, #5f1782)"
+                         ;>
+                        <p class="w3-center"><img src="{% static 'images/course.png' %}"
+                                                  style="height:110px;width:130px"
+                                                  alt="Courses"></p>
+
+                    </div>
+                </div>
+                <!-- Left Sidebar -->
+
+                <div class="w3-card w3-round">
+                    <div class="w3-white">
+
+                        <button onclick="myFunction('Demo1')" class="w3-button w3-block w3-theme-l1 w3-left-align">
+                            <i class="fa fa-book fa-fw w3-margin-right"></i><span style="font-size: 16px">Java</span>
+                        </button>
+
+                        <div id="Demo1" class="w3-hide w3-container">
+                            <div class="scroll">
+                                <br>
+                                {% for program in java_programs %}
+                                    <a href="{% url 'programmingDetails' program.id %}">{{ program.p_title }}</a>
+                                    <hr class="mt-0">
+                                {% endfor %}
+
+
+                            </div>
+                        </div>
+                        <button onclick="myFunction('Demo2')" class="w3-button w3-block w3-theme-l1 w3-left-align">
+                            <i
+                                    class="fa fa-book fa-fw w3-margin-right"></i><span style="font-size: 16px"> JavaScript</span>
+                        </button>
+                        <div id="Demo2" class="w3-hide w3-container">
+                            <div class="scroll">
+                                <br>
+                                {% for program in js_programs %}
+                                    <a href="{% url 'programmingDetails' program.id %}">{{ program.p_title }}</a>
+                                    <hr class="mt-0">
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                        <button onclick="myFunction('Demo3')" class="w3-button w3-block w3-theme-l1 w3-left-align">
+                            <i
+                                    class="fa fa-book fa-fw w3-margin-right"></i><span
+                                style="font-size: 16px">PHP</span>
+                        </button>
+                        <div id="Demo3" class="w3-hide w3-container">
+                            <div class="scroll">
+                                <br>
+                                {% for program in php_programs %}
+                                    <a href="{% url 'programmingDetails' program.id %}">{{ program.p_title }}</a>
+                                    <hr class="mt-0">
+                                {% endfor %}
+
+
+                            </div>
+                        </div>
+                        <button onclick="myFunction('Demo4')" class="w3-button w3-block w3-theme-l1 w3-left-align">
+                            <i
+                                    class="fa fa-book fa-fw w3-margin-right"></i><span
+                                style="font-size: 16px">Python</span>
+                        </button>
+                        <div id="Demo4" class="w3-hide w3-container">
+                            <div class="scroll">
+                                <br>
+                                {% for program in python_programs %}
+                                    <a href="{% url 'programmingDetails' program.id %}">{{ program.p_title }}</a>
+                                    <hr class="mt-0">
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <br>
+                <!-- End Left Column -->
+            </div>
+
+            <!-- Middle Column -->
+            <div class="w3-col m7">
+                <div class="w3-row-padding">
+                    <div class="w3-col m12">
+                        <div class="w3-card w3-round w3-white">
+                            <div class="w3-container w3-padding">
+                                <h6 class="w3-opacity">Java </h6>
+                                <img src="{% static 'images/java.png' %}" alt="Avatar"
+                                     class="w3-left w3-circle w3-margin-right"
+                                     style="width:90px">
+                                <h4>Java Programming Language</h4><br>
+                                <p>Java is a general-purpose programming language that is class-based,
+                                    object-oriented,
+                                    and designed to have as few implementation dependencies as possible. Java
+                                    applications are typically compiled to bytecode that can run on any Java virtual
+                                    machine (JVM) regardless of the underlying computer architecture.</p>
+                                <hr class="w3-clear">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
+                    <h6 class="w3-opacity">JavaScript </h6>
+                    <img src="{% static 'images/js.png' %}" alt="Avatar" class="w3-left w3-margin-right"
+                         style="width:40px">
+                    <h4>JavaScript Programming Language</h4><br>
+                    <p> JavaScript is a dynamic computer programming language. It is lightweight and most commonly
+                        used
+                        as a part of web pages, whose implementations allow client-side script to interact with the
+                        user
+                        and make dynamic pages. It is an interpreted programming language with object-oriented
+                        capabilities.</p>
+                    <hr class="w3-clear">
+                </div>
+
+                <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
+                    <h6 class="w3-opacity">PHP </h6>
+                    <img src="{% static 'images/php.png' %}" alt="Avatar" class="w3-left w3-circle w3-margin-right"
+                         style="width:70px">
+                    <h4>PHP: Hypertext Preprocessor </h4><br>
+                    <p>PHP is a server side scripting language. that is used to develop Static websites or Dynamic
+                        websites or Web applications. PHP stands for Hypertext Pre-processor, that earlier stood for
+                        Personal Home Pages.
+                        PHP scripts can only be interpreted on a server that has PHP installed.
+                        The client computers accessing the PHP scripts require a web browser only.</p>
+                </div>
+
+                <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
+                    <h6 class="w3-opacity">Python </h6>
+                    <img src="{% static 'images/python.png' %}" alt="Avatar" class="w3-left w3-margin-right"
+                         style="width:50px">
+                    <h4>Python Programming Language</h4><br>
+
+                    <p> Python is an interpreted, object-oriented, high-level programming language with dynamic
+                        semantics. Its high-level built in data structures, combined with dynamic typing and dynamic
+                        binding, make it very attractive for Rapid Application Development, as well as for use as a
+                        scripting or glue language to connect existing components together. Python's simple, easy to
+                        learn syntax emphasizes readability and therefore reduces the cost of program
+                        maintenance.</p>
+
+                </div>
+
+                <!-- End Middle Column -->
+            </div>
+
+            <!-- Right Column -->
+            <div class="w3-col m2">
+                <div class="w3-card w3-round w3-white w3-center">
+                    <div class="w3-container">
+                        <h6 style="font-weight: bold;">YOUTUBE CHANNEL</h6>
+                        <hr class="solid">
+                        <div class="iframe_container">
+                            <iframe class="responsive-iframe" src="https://www.youtube.com/embed/4-n3x0tcgqQ"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen></iframe>
+                        </div>
+                        <p><a href="https://www.youtube.com/channel/UCRYV5HY4v9AE-GCnFshZqiA" target="_blank">
+                            <button class="w3-button w3-block w3-red w3-section ">SUBSCRIBE</button>
+                        </a>
+                        </p>
+                    </div>
+                </div>
+                <br>
+
+                <div class="w3-card w3-round w3-white w3-center">
+                    <div class="w3-container">
+                        <h6 style="font-weight: bold;">OUR COURSES</h6>
+                        <hr class="solid">
+                        <div class="w3-content w3-section" style="max-width:100%">
+
+                            <img class="mySlides w3-animate-fading" src="{% static 'images/slider1.png' %}"
+                                 style="width:100%">
+                            <img class="mySlides w3-animate-fading" src="{% static 'images/slider2.png' %}"
+                                 style="width:100%">
+                            <img class="mySlides w3-animate-fading" src="{% static 'images/slider3.png' %}"
+                                 style="width:100%">
+                            <img class="mySlides w3-animate-fading" src="{% static 'images/slider4.png' %}"
+                                 style="width:100%">
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <!-- End Right Column -->
+            </div>
+
+            <!-- End Grid -->
+        </div>
+    </div>
+
+    <!-- End Page Container -->
+    <!-- Optional JavaScript -->
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src=" https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous">
+    </script>
+
+
+    <script>
+        // Leftbar Menu in Action
+        function myFunction(id) {
+            var x = document.getElementById(id);
+            if (x.className.indexOf("w3-show") == -1) {
+                x.className += " w3-show";
+                x.previousElementSibling.className += " w3-theme-d1";
+            } else {
+                x.className = x.className.replace("w3-show", "");
+                x.previousElementSibling.className =
+                    x.previousElementSibling.className.replace(" w3-theme-d1", "");
+            }
+        }
+
+        $(function () {
+            $('a').click(function () {
+                $('a.active').removeClass('active');
+                $(this).addClass('active');
+            });
+        });
+
+        // automatic slider
+        var myIndex = 0;
+        carousel();
+
+        function carousel() {
+            var i;
+            var x = document.getElementsByClassName("mySlides");
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            myIndex++;
+            if (myIndex > x.length) {
+                myIndex = 1
+            }
+            x[myIndex - 1].style.display = "block";
+            setTimeout(carousel, 3000);
+        }
+
+
+    </script>
+
+{% endblock %}

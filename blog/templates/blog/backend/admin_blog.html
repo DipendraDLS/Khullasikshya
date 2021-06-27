@@ -1,0 +1,180 @@
+{% extends 'admin_home/admin_base.html' %}
+{% load static %}
+{% block body %}
+    <div class="container-fluid">
+
+
+        <!-- Main CRUD Table -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+
+                <h6 class="m-0 font-weight-bold text-primary">Create Blogs</h6>
+                <br>
+                <button type="submit" class="btn btn-primary" id="create_blog">
+                    Show Form
+                </button>
+
+
+                <button type="submit" class="btn btn-primary" style="display: none;" id="hide-form">
+                    Hide Form
+                </button>
+
+            </div>
+
+            <div class="card-body" style="display: none;" id="create_blog_form">
+
+
+                <form action="" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.media }}
+                    <div class="form-group">
+                        <label for="Blog Title">Blog Title</label>
+                        {{ form.blog_title }}
+                    </div>
+                    <div class="form-group">
+                        <label for="Blog Content">Blog Content</label><br>
+                        {{ form.blog_content }}
+
+                    </div>
+                    <div class="form-group">
+                        <label for="Blog Content">Blog Image</label><br>
+                        {{ form.blog_image }}
+                    </div>
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </form>
+
+
+            </div>
+
+        </div>
+
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-1 text-gray-800">Our Posted Blogs</h1>
+
+
+                    <!-- Content Row -->
+                    <div class="row">
+                        {% for blog in blogs %}
+
+                            <!-- Border Left Utilities -->
+                            <div class="col-md-6">
+
+                                <div class="card mb-4 py-3 border-left-primary">
+                                    <div class="card-body">
+                                        <strong style="color: black">{{ blog.blog_title }}</strong>
+                                        <div class="float-right">
+                                            <a href="{% url 'edit' blog.id %}" class="btn btn-warning  btn-md">Edit</a>
+                                            <form action="{% url 'delete' blog.id %}" method="POST" class="d-inline">
+                                                {% csrf_token %}
+                                                <input type="submit" class="btn btn-danger" value="Delete"
+                                                       onclick="deleteBlogFunction()">
+                                            </form>
+                                        </div>
+                                        <p>Created at: {{ blog.blog_created_at|date:"D d M Y" }}</p>
+
+
+                                    </div>
+
+
+                                </div>
+
+
+                            </div>
+                        {% endfor %}
+
+
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+
+    </div>
+    {% block scripts %}
+        <!-- Sweet alert Link -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+        <link rel="stylesheet" type="text/css"
+              href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+
+        <!-- jquery link -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script>
+
+            $("#create_blog").click(function () {
+                    $("#create_blog_form").show()
+                    $("#hide-form").show()
+                    $(this).hide()
+                }
+            );
+            $("#hide-form").click(function () {
+                $('#create_blog_form').hide()
+                $("#create_blog").show()
+                $(this).hide()
+            });
+
+            // Delete Function for confirm delete
+            function deleteBlogFunction() {
+                event.preventDefault(); // prevent form submit
+                let form = event.target.form; // storing the form
+                swal({
+                        title: "Are you sure you want to delete blog?",
+                        text: "Once it's done it can't be undone.",
+                        type: "warning",
+                        showCancelButton: true,
+                        cancelButtonColor: "#FFF",
+                        confirmButtonColor: "#dd6b55",
+                        confirmButtonText: "Yes, Delete it!",
+                        cancelButtonText: "No, cancel please!",
+                        closeOnConfirm: false,
+                        closeOnCancel: false
+                    },
+                    function (isConfirm) {
+                        if (isConfirm) {
+                            form.submit();          // submitting the form when user press yes
+                        } else {
+                            swal("Cancelled", "blog not deleted. ", "error");
+                        }
+                    });
+            }
+
+
+        </script>
+
+{# This is added aleardy in settings.py if added from 'javascript' editorName conflict arise so added from django itself in setting.py .#}
+{#        <script>#}
+{##}
+{#            var config = {#}
+{#                extraPlugins: 'codesnippet',#}
+{#                codeSnippet_theme: 'monokai_sublime',#}
+{#                height: 356,#}
+{#                width: 900#}
+{#            };#}
+{##}
+{#            CKEDITOR.replace('blog_content', config);#}
+{##}
+{#        </script>#}
+    {% endblock %}
+
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,426 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block body %}
+
+    <!-- page title -->
+    <section class="page-title-section overlay" data-background="{% static 'home/images/backgrounds/page-title.jpg' %}">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <ul class="list-inline custom-breadcrumb">
+                        <li class="list-inline-item"><a class="h2 text-primary font-secondary"
+                                                        href="{% url 'bachelor' %}"><strong>Bachelor</strong>
+                        </a></li>
+                        <li class="list-inline-item text-white h3 font-secondary nasted">
+                            <b>{{ faculty.faculty_name }}</b></li>
+                    </ul>
+                    <p class="text-lighten">We provide free notes, syllabus, past paper questions along with it's
+                        solution which can be really helpful during your entire bachelor life.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /page title -->
+
+    {% if faculty.faculty_name != 'BBS' and faculty.faculty_name != 'BSW' %}
+        <!-- courses According to Semester -->
+        <section class="section">
+            <div class="container">
+                <div class="row">
+                    <!-- 1st Sem -->
+                    <a href="{% url 'bachelorFirstSem' faculty.id %}">
+                        <div class="col-lg-4 col-sm-6 mb-5">
+                            <div class="card rounded-0 hover-shadow">
+                                <div class="card-img position-relative">
+                                    <img class="card-img-top rounded-0"
+                                         src="{% static 'home/images/sem/sem.jpg' %}"
+                                         alt="event thumb">
+                                    <div class="card-date"><span>1<sup
+                                            style="text-transform: lowercase">st</sup></span><br>Semester
+                                    </div>
+                                </div>
+
+                                <div class="card-body">
+                                    <!-- location -->
+                                    <p>Click on semester to get
+                                        resource</p>
+                                    <a href="{% url 'bachelorFirstSem' faculty.id %}">
+                                        <h4 class="card-title">{{ faculty.faculty_name }}- First Semester</h4>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- 2nd Sem -->
+                    <a href="{% url 'bachelorSecondSem' faculty.id %}">
+                        <div class="col-lg-4 col-sm-6 mb-5">
+                            <div class="card rounded-0 hover-shadow">
+                                <div class="card-img position-relative">
+                                    <img class="card-img-top rounded-0"
+                                         src="{% static 'home/images/sem/sem.jpg' %}"
+                                         alt="event thumb">
+                                    <div class="card-date"><span>2<sup style="text-transform: lowercase">nd</sup></span><br>Semester
+                                    </div>
+
+                                </div>
+                                <div class="card-body">
+                                    <!-- location -->
+                                    <p>Click on semester to get
+                                        resource</p>
+                                    <a href="{% url 'bachelorSecondSem' faculty.id %}">
+                                        <h4 class="card-title">{{ faculty.faculty_name }}- Second Semester</h4>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- 3rd Sem -->
+                    <a href="{% url 'bachelorThirdSem' faculty.id %}">
+
+                        <div class="col-lg-4 col-sm-6 mb-5">
+                            <div class="card rounded-0 hover-shadow">
+                                <div class="card-img position-relative">
+                                    <img class="card-img-top rounded-0"
+                                         src="{% static 'home/images/sem/sem.jpg' %}"
+                                         alt="event thumb">
+                                    <div class="card-date"><span>3<sup style="text-transform: lowercase">rd</sup></span><br>Semester
+                                    </div>
+
+                                </div>
+                                <div class="card-body">
+                                    <!-- location -->
+                                    <p>Click on semester to get
+                                        resource</p>
+                                    <a href="{% url 'bachelorThirdSem' faculty.id %}">
+                                        <h4 class="card-title">{{ faculty.faculty_name }}- Third Semester</h4>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- 4th Sem -->
+                    <a href="{% url 'bachelorFourthSem' faculty.id %}">
+
+                        <div class="col-lg-4 col-sm-6 mb-5">
+                            <div class="card rounded-0 hover-shadow">
+                                <div class="card-img position-relative">
+                                    <img class="card-img-top rounded-0"
+                                         src="{% static 'home/images/sem/sem.jpg' %}"
+                                         alt="event thumb">
+                                    <a href="{% url 'bachelorFourthSem' faculty.id %}">
+                                        <div class="card-date"><span>4<sup
+                                                style="text-transform: lowercase">th</sup></span><br>Semester
+                                        </div>
+                                    </a>
+
+
+                                </div>
+                                <div class="card-body">
+                                    <!-- location -->
+                                    <p>Click on semester to get
+                                        resource</p>
+                                    <a href="{% url 'bachelorFourthSem' faculty.id %}">
+                                        <h4 class="card-title">{{ faculty.faculty_name }}- Fourth Semester</h4>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- 5th Sem -->
+                    <a href="{% url 'bachelorFifthSem' faculty.id %}">
+
+                        <div class="col-lg-4 col-sm-6 mb-5">
+                            <div class="card rounded-0 hover-shadow">
+                                <div class="card-img position-relative">
+                                    <img class="card-img-top rounded-0"
+                                         src="{% static 'home/images/sem/sem.jpg' %}"
+                                         alt="event thumb">
+                                    <div class="card-date"><span>5<sup style="text-transform: lowercase">th</sup></span><br>Semester
+                                    </div>
+
+                                </div>
+                                <div class="card-body">
+                                    <!-- location -->
+                                    <p>Click on semester to get
+                                        resource</p>
+                                    <a href="{% url 'bachelorFifthSem' faculty.id %}">
+                                        <h4 class="card-title">{{ faculty.faculty_name }}- Fifth Semester</h4>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- 6th Sem -->
+                    <a href="{% url 'bachelorSixthSem' faculty.id %}">
+
+                        <div class="col-lg-4 col-sm-6 mb-5">
+                            <div class="card rounded-0 hover-shadow">
+                                <div class="card-img position-relative">
+                                    <img class="card-img-top rounded-0"
+                                         src="{% static 'home/images/sem/sem.jpg' %}"
+                                         alt="event thumb">
+                                    <div class="card-date"><span>6<sup style="text-transform: lowercase">th</sup></span><br>Semester
+                                    </div>
+
+                                </div>
+                                <div class="card-body">
+                                    <!-- location -->
+                                    <p>Click on semester to get
+                                        resource</p>
+                                    <a href="{% url 'bachelorSixthSem' faculty.id %}">
+                                        <h4 class="card-title">{{ faculty.faculty_name }}- Sixth Semester</h4>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- 7th Sem -->
+                    <a href="{% url 'bachelorSeventhSem' faculty.id %}">
+                        <div class="col-lg-4 col-sm-6 mb-5">
+                            <div class="card rounded-0 hover-shadow">
+                                <div class="card-img position-relative">
+                                    <img class="card-img-top rounded-0"
+                                         src="{% static 'home/images/sem/sem.jpg' %}"
+                                         alt="event thumb">
+                                    <div class="card-date"><span>7<sup style="text-transform: lowercase">th</sup></span><br>Semester
+                                    </div>
+
+                                </div>
+                                <div class="card-body">
+                                    <!-- location -->
+                                    <p>Click on semester to get
+                                        resource</p>
+                                    <a href="{% url 'bachelorSeventhSem' faculty.id %}">
+                                        <h4 class="card-title">{{ faculty.faculty_name }}- Seventh Semester</h4>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- 8th Sem -->
+                    <a href="{% url 'bachelorEighthSem' faculty.id %}">
+
+                        <div class="col-lg-4 col-sm-6 mb-5">
+                            <div class="card rounded-0 hover-shadow">
+                                <div class="card-img position-relative">
+                                    <img class="card-img-top rounded-0"
+                                         src="{% static 'home/images/sem/sem.jpg' %}"
+                                         alt="event thumb">
+                                    <div class="card-date"><span>8<sup style="text-transform: lowercase">th</sup></span><br>Semester
+                                    </div>
+
+                                </div>
+                                <div class="card-body">
+                                    <!-- location -->
+                                    <p>Click on semester to get
+                                        resource</p>
+                                    <a href="{% url 'bachelorEighthSem' faculty.id %}">
+                                        <h4 class="card-title">{{ faculty.faculty_name }}- Eighth Semester</h4>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+        <!-- /courses According to semester-->
+    {% endif %}
+
+    {% if faculty.faculty_name == 'BBS' %}
+        <!--courses According to the 4 year -->
+        <section class="section">
+            <div class="container">
+                <div class="row">
+                    <!-- 1st Year -->
+                    <a href="{% url 'bachelorFirstYear' faculty.id %}">
+                        <div class="col-lg-4 col-sm-6 mb-5" data-aos="zoom-in">
+                            <div class="card rounded-0 hover-shadow">
+                                <div class="card-img position-relative">
+                                    <img class="card-img-top rounded-0"
+                                         src="{% static 'home/images/sem/sem.jpg' %}"
+                                         alt="event thumb">
+                                    <div class="card-date"><span>1<sup style="text-transform: lowercase">st</sup></span><br>Year
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <!-- location -->
+                                    <p>Click on year to get
+                                        resource</p>
+                                    <a href="{% url 'bachelorFirstYear' faculty.id %}">
+                                        <h4 class="card-title">{{ faculty.faculty_name }}- First Year</h4>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- 2nd Year -->
+                    <a href="{% url 'bachelorSecondYear' faculty.id %}">
+                        <div class="col-lg-4 col-sm-6 mb-5" data-aos="zoom-in">
+                            <div class="card rounded-0 hover-shadow">
+                                <div class="card-img position-relative">
+                                    <img class="card-img-top rounded-0"
+                                         src="{% static 'home/images/sem/sem.jpg' %}"
+                                         alt="event thumb">
+                                    <div class="card-date"><span>2<sup style="text-transform: lowercase">nd</sup></span><br>Year
+                                    </div>
+
+                                </div>
+                                <div class="card-body">
+                                    <!-- location -->
+                                    <p>Click on year to get
+                                        resource</p>
+                                    <a href="{% url 'bachelorSecondYear' faculty.id %}">
+                                        <h4 class="card-title">{{ faculty.faculty_name }}- Second Year</h4>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- 3rd Year -->
+                    <a href="{% url 'bachelorThirdYear' faculty.id %}">
+                        <div class="col-lg-4 col-sm-6 mb-5" data-aos="zoom-in">
+                            <div class="card rounded-0 hover-shadow">
+                                <div class="card-img position-relative">
+                                    <img class="card-img-top rounded-0"
+                                         src="{% static 'home/images/sem/sem.jpg' %}"
+                                         alt="event thumb">
+                                    <div class="card-date"><span>3<sup style="text-transform: lowercase">rd</sup></span><br>Year
+                                    </div>
+
+                                </div>
+                                <div class="card-body">
+                                    <!-- location -->
+                                    <p>Click on year to get
+                                        resource</p>
+                                    <a href="{% url 'bachelorThirdYear' faculty.id %}">
+                                        <h4 class="card-title">{{ faculty.faculty_name }}- Third Year</h4>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- 4th Year -->
+                    <a href="{% url 'bachelorFourthYear' faculty.id %}">
+                        <div class="col-lg-4 col-sm-6 mb-5" data-aos="zoom-in">
+                            <div class="card rounded-0 hover-shadow">
+                                <div class="card-img position-relative">
+                                    <img class="card-img-top rounded-0"
+                                         src="{% static 'home/images/sem/sem.jpg' %}"
+                                         alt="event thumb">
+                                    <a href="#">
+                                        <div class="card-date"><span>4<sup
+                                                style="text-transform: lowercase">th</sup></span><br>Year
+                                        </div>
+                                    </a>
+
+
+                                </div>
+                                <div class="card-body">
+                                    <!-- location -->
+                                    <p>Click on year to get
+                                        resource</p>
+                                    <a href="{% url 'bachelorFourthYear' faculty.id %}">
+                                        <h4 class="card-title">{{ faculty.faculty_name }}- Fourth Year</h4>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+        </section>
+        <!--/courses According to the 4 Year -->
+    {% endif %}
+
+    {% if faculty.faculty_name == 'BSW' %}
+        <!-- courses According to the 3 Year -->
+        <section class="section">
+            <div class="container">
+                <div class="row">
+                    <!-- 1st Year -->
+                    <a href="{% url 'bachelorFirstYear' faculty.id %}">
+                        <div class="col-lg-4 col-sm-6 mb-5" data-aos="zoom-in">
+                            <div class="card rounded-0 hover-shadow">
+                                <div class="card-img position-relative">
+                                    <img class="card-img-top rounded-0"
+                                         src="{% static 'home/images/sem/sem.jpg' %}"
+                                         alt="event thumb">
+                                    <div class="card-date"><span>1<sup style="text-transform: lowercase">st</sup></span><br>Year
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <!-- location -->
+                                    <p><i class="ti-location-pin text-primary"></i>Click on year to get resources.</p>
+                                    <a href="{% url 'bachelorFirstYear' faculty.id %}">
+                                        <h4 class="card-title">{{ faculty.faculty_name }}- First Year</h4>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <!-- 2nd Year -->
+                    <a href="{% url 'bachelorSecondYear' faculty.id %}">
+                        <div class="col-lg-4 col-sm-6 mb-5" data-aos="zoom-in">
+                            <div class="card rounded-0 hover-shadow">
+                                <div class="card-img position-relative">
+                                    <img class="card-img-top rounded-0"
+                                         src="{% static 'home/images/sem/sem.jpg' %}"
+                                         alt="event thumb">
+                                    <div class="card-date"><span>2<sup style="text-transform: lowercase">nd</sup></span><br>Year
+                                    </div>
+
+                                </div>
+                                <div class="card-body">
+                                    <!-- location -->
+                                    <p>Click on year to get resources.
+                                    </p>
+                                    <a href="{% url 'bachelorSecondYear' faculty.id %}">
+                                        <h4 class="card-title">{{ faculty.faculty_name }}- Second Year</h4>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <!-- 3rd Year -->
+                    <a href="{% url 'bachelorThirdYear' faculty.id %}">
+                        <div class="col-lg-4 col-sm-6 mb-5" data-aos="zoom-in">
+                            <div class="card rounded-0 hover-shadow">
+                                <div class="card-img position-relative">
+                                    <img class="card-img-top rounded-0"
+                                         src="{% static 'home/images/sem/sem.jpg' %}"
+                                         alt="event thumb">
+                                    <div class="card-date"><span>3<sup style="text-transform: lowercase">rd</sup></span><br>Year
+                                    </div>
+
+                                </div>
+                                <div class="card-body">
+                                    <!-- location -->
+                                    <p>Click on year to get resources.</p>
+                                    <a href="{% url 'bachelorThirdYear' faculty.id %}">
+                                        <h4 class="card-title">{{ faculty.faculty_name }}- Third Year</h4>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+        </section>
+        <!-- /Courses According to the 3 Year -->
+    {% endif %}
+
+{% endblock %}

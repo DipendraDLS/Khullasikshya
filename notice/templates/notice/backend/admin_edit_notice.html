@@ -1,0 +1,43 @@
+{% extends 'admin_home/admin_base.html' %}
+{% load static %}
+
+{% block body %}
+    <div class="container-fluid">
+
+
+        <!-- Notice Edit Table -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <a href="{% url 'adminNotice' %}">
+                    <button type="submit" class="btn btn-primary">Back</button>
+                </a>
+            </div>
+            <div class="card-body">
+
+                <form action="" method="POST" >
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="Blog Title">Notice Title</label>
+                        {{ form.notice_title }}
+                    </div>
+                    <div class="form-group">
+                        <label for="Blog Content">Notice Link</label>
+                        {{ form.notice_url }}
+                        
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Blog Content">Notice content</label><br>
+                        {{ form.notice_content }}
+                    </div>
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+{% endblock %}

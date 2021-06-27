@@ -1,0 +1,476 @@
+{% extends 'home/base.html' %}
+
+{% load static %}
+
+{% block body %}
+    {% block style %}
+        <style>
+            p {
+                text-align: justify;
+            }
+        </style>
+    {% endblock %}
+
+    <!-- hero slider -->
+    <section class="hero-section overlay bg-cover" data-background="{% static 'home/images/banner/banner-1.jpg' %}">
+        <div class="container">
+            <div class="hero-slider">
+                <!-- slider item -->
+                <div class="hero-slider-item">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h1 class="text-white" data-animation-out="fadeOutRight" data-delay-out="5"
+                                data-duration-in=".3" data-animation-in="fadeInLeft" data-delay-in=".1">
+                                Khullasikshya</h1>
+                            <p class="text-muted mb-4" data-animation-out="fadeOutRight" data-delay-out="5"
+                               data-duration-in=".3" data-animation-in="fadeInLeft" data-delay-in=".4">
+                                The Heart & Future of the community.
+
+                            </p>
+                            <a href="{% url 'contact' %}" class="btn btn-primary" data-animation-out="fadeOutRight"
+                               data-delay-out="5" data-duration-in=".3" data-animation-in="fadeInLeft"
+                               data-delay-in=".7">Apply now</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- slider item -->
+                <div class="hero-slider-item">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h1 class="text-white" data-animation-out="fadeOutUp" data-delay-out="5"
+                                data-duration-in=".3" data-animation-in="fadeInDown" data-delay-in=".1">Your comfort
+                                is our passion</h1>
+                            <p class="text-muted mb-4" data-animation-out="fadeOutUp" data-delay-out="5"
+                               data-duration-in=".3" data-animation-in="fadeInDown" data-delay-in=".4">
+                                Our mission is to provide reliable and valid resources for all levels of students.
+                            </p>
+                            <a href="{% url 'contact' %}" class="btn btn-primary" data-animation-out="fadeOutUp"
+                               data-delay-out="5" data-duration-in=".3" data-animation-in="fadeInDown"
+                               data-delay-in=".7">Apply now</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- slider item -->
+                <div class="hero-slider-item">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h1 class="text-white" data-animation-out="fadeOutDown" data-delay-out="5"
+                                data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".1">Education For
+                                Everyone.</h1>
+                            <p class="text-muted mb-4" data-animation-out="fadeOutDown" data-delay-out="5"
+                               data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".4">Get free access to
+                                notes, syllabus, past questions along with it's solution for
+                                bachelor, intermediate and school level.</p>
+                            <a href="{% url 'contact' %}" class="btn btn-primary" data-animation-out="fadeOutDown"
+                               data-delay-out="5" data-duration-in=".3" data-animation-in="zoomIn" data-delay-in=".7">Apply
+                                now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /hero slider -->
+
+    <!-- banner-feature -->
+    <section class="bg-gray">
+        <div class="container-fluid p-0">
+            <div class="row no-gutters">
+                <div class="col-xl-4 col-lg-5 align-self-end">
+                    <img class="img-fluid w-100" src="{% static 'home/images/banner/banner-feature.png' %}"
+                         alt="banner-feature">
+                </div>
+                <div class="col-xl-8 col-lg-7">
+                    <div class="row feature-blocks bg-gray justify-content-between">
+                        <div class="col-sm-6 col-xl-5 mb-xl-5 mb-lg-3 mb-4 text-center text-sm-left">
+                            <i class="ti-book mb-xl-4 mb-lg-3 mb-4 feature-icon"></i>
+                            <h3 class="mb-xl-4 mb-lg-3 mb-4">Resources</h3>
+                            <p style="text-align: justify">Khullasikshya provides necessary resources such as notes,
+                                syllabus, past questions along with its solution. It's one of the best platforms for
+                                those students who are in search of valid and reliable resources.</p>
+
+                        </div>
+                        <div class="col-sm-6 col-xl-5 mb-xl-5 mb-lg-3 mb-4 text-center text-sm-left">
+                            <a href="{% url 'notice' %}">
+                                <i class="ti-blackboard mb-xl-4 mb-lg-3 mb-4 feature-icon"></i>
+                                <h3 class="mb-xl-4 mb-lg-3 mb-4">Our Notice Board</h3>
+                            </a>
+                            <p>Notices regarding the examination, routine, forms and other latest notice are available
+                                here.</p>
+                        </div>
+                        <div class="col-sm-6 col-xl-5 mb-xl-5 mb-lg-3 mb-4 text-center text-sm-left">
+                            <a href="https://www.youtube.com/channel/UCRYV5HY4v9AE-GCnFshZqiA" target="_blank">
+                                <i class="ti-youtube mb-xl-4 mb-lg-3 mb-4 feature-icon"></i>
+                                <h3 class="mb-xl-4 mb-lg-3 mb-4">Our Channel</h3>
+                            </a>
+                            <p style="text-align: justify">Access the video tutorial for those who want to learn a
+                                programming language such as
+                                Python, Java, PHP, JavaScript from basic to advance
+                            </p>
+                        </div>
+                        <div class="col-sm-6 col-xl-5 mb-xl-5 mb-lg-3 mb-4 text-center text-sm-left">
+                            <a href="{% url 'blog' %}">
+                                <i class="fas fa-blog mb-xl-4 mb-lg-3 mb-4 feature-icon"></i>
+                                <h3 class="mb-xl-4 mb-lg-3 mb-4">Blog</h3>
+                            </a>
+                            <p style="text-align: justify">View our blog page to get information regarding various
+                                domains such as the IT field,
+                                Business, Marketing, Online Services, and many more.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /banner-feature -->
+
+    <!-- about us -->
+    <section class="section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 order-2 order-md-1">
+                    <h2 class="section-title">About Khullasikshya</h2>
+                    <p>If you want to achieve something that you never had, you must do something that you never
+                        did.
+                    </p>
+                    <p>khullasikshya is one of the reliable source to get all kinds of studying materials where students
+                        can freely access notes, syllabus, past questions along with its solution.</p>
+                    <p>This platform is best for those students who have been involved in the IT sector in bachelor's as
+                        they can even access the final year projects along with the documentation and code.</p>
+
+                    <a href="{% url 'about' %}" class="btn btn-primary">Learn more</a>
+                </div>
+                <div class="col-md-6 order-1 order-md-2 mb-4 mb-md-0">
+                    <img class="img-fluid w-100" src="{% static 'home/images/about/about-us.jpg' %}" alt="about image">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /about us -->
+
+    <!-- courses -->
+    <section class="section-sm">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex align-items-center section-title justify-content-between">
+                        <div class="border-top w-50 border-primary d-none d-sm-block"></div>
+                        <h2 class="mb-0 text-nowrap mr-3">Level</h2>
+                        <div class="border-top w-50 border-primary d-none d-sm-block"></div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- course list -->
+            <div class="row justify-content-center" style="">
+                <!-- course item -->
+                <div class="col-lg-4 col-sm-6 mb-5">
+                    <div class="card p-0 border-primary rounded-0 hover-shadow">
+                        <img class="card-img-top rounded-0" src="{% static 'home/images/courses/course-1.jpg' %}"
+                             alt="course thumb">
+                        <div class="card-body">
+                            <ul class="list-inline mb-2">
+                                <li class="list-inline-item text-color">Bachelor</li>
+                            </ul>
+                            <a href="{% url 'bachelor' %}">
+                                <h4 class="card-title">Bachelor Level</h4>
+                            </a>
+                            <p class="card-text mb-4">We have included the resources for various faculties of bachelor
+                                such as BSC/CSIT, BCA, BIT, BIM, BSW, BBA, BBS, B.E Computer Engineering, and B.E Civil
+                                Engineering.</p>
+                            <a href="{% url 'bachelor' %}" class="btn btn-primary btn-sm">Details</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- course item -->
+                <div class="col-lg-4 col-sm-6 mb-5">
+                    <div class="card p-0 border-primary rounded-0 hover-shadow">
+                        <img class="card-img-top rounded-0" src="{% static 'home/images/courses/course-2.jpg' %}"
+                             alt="course thumb">
+                        <div class="card-body">
+                            <ul class="list-inline mb-2">
+                                <li class="list-inline-item text-color">+2 Level</li>
+                            </ul>
+                            <a href="{% url 'intermediate' %}">
+                                <h4 class="card-title">Intermediate Level</h4>
+                            </a>
+                            <p class="card-text mb-4">
+                                We have included the resources for various faculties of +2|11 and +2|12 such as Science,
+                                Management, and Humanities. You can access resources according to your needs.
+                            </p>
+                            <a href="{% url 'intermediate' %}" class="btn btn-primary btn-sm">Details</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- course item -->
+                <div class="col-lg-4 col-sm-6 mb-5">
+                    <div class="card p-0 border-primary rounded-0 hover-shadow">
+                        <img class="card-img-top rounded-0" src="{% static 'home/images/courses/course-3.jpg' %}"
+                             alt="course thumb">
+                        <div class="card-body">
+                            <ul class="list-inline mb-2">
+                                <li class="list-inline-item text-color">School Level</li>
+                            </ul>
+                            <a href="{% url 'schoolLevel' %}">
+                                <h4 class="card-title">School Level</h4>
+                            </a>
+
+                            <p class="card-text mb-4">
+                                We have included the resources for secondary school level from class 6 to 10. Each level
+                                has various subjects and depending upon the level-wise subjects resources have been
+                                categorized.
+                            </p>
+                            <a href="{% url 'schoolLevel' %}" class="btn btn-primary btn-sm">Details</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- Add unit 1 -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-7771050651917937"
+                 data-ad-slot="9915127628"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+            <!-- /course list -->
+        </div>
+    </section>
+    <!-- /courses -->
+
+    <!-- cta -->
+    <section class="section bg-primary">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h6 class="text-white font-secondary mb-0">Click to Join the Our Youtube Channel.</h6>
+                    <h2 class="section-title text-white">Learn With Fun.</h2>
+                    <a href="https://www.youtube.com/channel/UCRYV5HY4v9AE-GCnFshZqiA" target="_blank"
+                       class="btn btn-secondary">join now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /cta -->
+
+    <!-- success story -->
+    <section class="section bg-cover" data-background="{% static 'home/images/backgrounds/success-story.jpg' %}">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-sm-4 position-relative success-video">
+                    <a class="play-btn venobox" href="https://www.youtube.com/watch?v=4-n3x0tcgqQ&ab_channel=Utshuk"
+                       data-vbtype="video">
+                        <i class="ti-control-play"></i>
+                    </a>
+                </div>
+                <div class="col-lg-6 col-sm-8">
+                    <div class="bg-white p-5">
+                        <h2 class="section-title">Our Channel</h2>
+                        <p>Utshuk youtube channel is all about learning the programming language from basic to advance.
+                            Our channel provides various tutorial videos regarding programming languages such as Python,
+                            Java, PHP, JavaScript, and many more.</p>
+                        <p>We don't teach, We Educate. Learn Programming With Fun!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /success story -->
+
+    {#    <!-- sem -->#}
+    {#    <section class="section bg-gray">#}
+    {#        <div class="container">#}
+    {#            <div class="row">#}
+    {#                <div class="col-12">#}
+    {#                    <div class="d-flex align-items-center section-title justify-content-between">#}
+    {#                        <h2 class="mb-0 text-nowrap mr-3">Upcoming Events</h2>#}
+    {#                        <div class="border-top w-100 border-primary d-none d-sm-block"></div>#}
+    {#                        <div>#}
+    {#                            <a href="sem.html" class="btn btn-sm btn-primary-outline ml-sm-3 d-none d-sm-block">see#}
+    {#                                all</a>#}
+    {#                        </div>#}
+    {#                    </div>#}
+    {#                </div>#}
+    {#            </div>#}
+    {#            <div class="row justify-content-center">#}
+    {#                <!-- event -->#}
+    {#                <div class="col-lg-4 col-sm-6 mb-5 mb-lg-0">#}
+    {#                    <div class="card border-0 rounded-0 hover-shadow">#}
+    {#                        <div class="card-img position-relative">#}
+    {#                            <img class="card-img-top rounded-0" src="{% static 'home/images/sem/event-1.jpg' %}"#}
+    {#                                 alt="event thumb">#}
+    {#                            <div class="card-date"><span>18</span><br>December</div>#}
+    {#                        </div>#}
+    {#                        <div class="card-body">#}
+    {#                            <!-- location -->#}
+    {#                            <p><i class="ti-location-pin text-primary mr-2"></i>Harvard, Usa</p>#}
+    {#                            <a href="event-single.html"><h4 class="card-title">Toward a public philosophy of#}
+    {#                                justice</h4></a>#}
+    {#                        </div>#}
+    {#                    </div>#}
+    {#                </div>#}
+    {#                <!-- event -->#}
+    {#                <div class="col-lg-4 col-sm-6 mb-5 mb-lg-0">#}
+    {#                    <div class="card border-0 rounded-0 hover-shadow">#}
+    {#                        <div class="card-img position-relative">#}
+    {#                            <img class="card-img-top rounded-0" src="{% static 'home/images/sem/event-2.jpg' %}"#}
+    {#                                 alt="event thumb">#}
+    {#                            <div class="card-date"><span>21</span><br>December</div>#}
+    {#                        </div>#}
+    {#                        <div class="card-body">#}
+    {#                            <!-- location -->#}
+    {#                            <p><i class="ti-location-pin text-primary mr-2"></i>Cambridge, USA</p>#}
+    {#                            <a href="event-single.html"><h4 class="card-title">Research seminar in clinical#}
+    {#                                science.</h4></a>#}
+    {#                        </div>#}
+    {#                    </div>#}
+    {#                </div>#}
+    {#                <!-- event -->#}
+    {#                <div class="col-lg-4 col-sm-6 mb-5 mb-lg-0">#}
+    {#                    <div class="card border-0 rounded-0 hover-shadow">#}
+    {#                        <div class="card-img position-relative">#}
+    {#                            <img class="card-img-top rounded-0" src="{% static 'home/images/sem/event-3.jpg' %}"#}
+    {#                                 alt="event thumb">#}
+    {#                            <div class="card-date"><span>23</span><br>December</div>#}
+    {#                        </div>#}
+    {#                        <div class="card-body">#}
+    {#                            <!-- location -->#}
+    {#                            <p><i class="ti-location-pin text-primary mr-2"></i>Dhanmondi Lake, Dhaka</p>#}
+    {#                            <a href="event-single.html"><h4 class="card-title">Firefly training in trauma-informed#}
+    {#                                yoga</h4></a>#}
+    {#                        </div>#}
+    {#                    </div>#}
+    {#                </div>#}
+    {#            </div>#}
+    {#            <!-- mobile see all button -->#}
+    {#            <div class="row">#}
+    {#                <div class="col-12 text-center">#}
+    {#                    <a href="course.html" class="btn btn-sm btn-primary-outline d-sm-none d-inline-block">sell all</a>#}
+    {#                </div>#}
+    {#            </div>#}
+    {#        </div>#}
+    {#    </section>#}
+    {#    <!-- /sem -->#}
+
+    <!-- Blog -->
+    <section class="section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12">
+                    <div class="d-flex align-items-center section-title justify-content-between">
+                        <h2 class="mb-0 text-nowrap mr-3">Latest Blog</h2>
+                        <div class="border-top w-100 border-primary d-none d-sm-block"></div>
+                        <div>
+                            <a href="{% url 'blog' %}" class="btn btn-sm btn-primary-outline ml-sm-3 d-none d-sm-block">see
+                                all</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Blog -->
+                {% for blog in blogs %}
+                    <div class="col-lg-4 col-sm-6 mb-5 mb-lg-0">
+                        <div class="card rounded-0 hover-shadow">
+                            <img class="card-img-top rounded-0" src="{{ blog.blog_image.url }}"
+                                 alt="Post thumb">
+                            <div class="card-body">
+                                <ul class="list-inline mb-3">
+                                    <!-- post date -->
+                                    <li class="list-inline-item mr-3 ml-0">{{ blog.blog_created_at|date:"d M Y, D" }}</li>
+                                    <br>
+                                    <!-- author -->
+                                    <li class="list-inline-item mr-3 ml-0">Posted
+                                        by: {{ blog.user.first_name|capfirst }}</li>
+                                </ul>
+                                <a href="{% url 'blogDetail' blog.id %}">
+                                    <h4 class="card-title">{{ blog.blog_title }}</h4>
+                                </a>
+                                <p>{{ blog.blog_content| truncatewords_html:10|striptags|safe }}</p>
+
+                                <a href="{% url 'blogDetail' blog.id %}" class="btn btn-primary btn-sm">read more</a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                {% endfor %}
+            </div>
+
+        </div>
+    </section>
+    <!-- /teachers -->
+
+    <!-- blog -->
+    <section class="section pt-0">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex align-items-center section-title justify-content-between">
+                        <h2 class="mb-0 text-nowrap mr-3">Latest Notices</h2>
+                        <div class="border-top w-100 border-primary d-none d-sm-block"></div>
+                        <div>
+                            <a href="{% url 'notice' %}"
+                               class="btn btn-sm btn-primary-outline ml-sm-3 d-none d-sm-block">see
+                                all</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <!-- Notices -->
+                {#                {% with count=0 %}#}
+                {#                {% endwith %}#}
+
+                {% for notice in notices %}
+                    {#                    {% with count=cou %}#}
+                    {#                    {% endwith %}#}
+                    {##}
+
+                    <article class="col-lg-4 col-sm-6 mb-5 mb-lg-0">
+                        <div class="card rounded-0 border-bottom border-primary hover-shadow">
+                            {% if forloop.counter == 1 %}
+                                <img class="card-img-top rounded-0"
+                                     src="{% static 'home/images/notices/notice1.png' %}"
+                                     alt="Post thumb">
+                                {#                        <div class="card-date"><span>23</span><br>December</div>#}
+                            {% elif forloop.counter == 2 %}
+                                <img class="card-img-top rounded-0"
+                                     src="{% static 'home/images/notices/notice2.webp' %}"
+                                     alt="Post thumb">
+                            {% elif forloop.counter == 3 %}
+                                <img class="card-img-top rounded-0"
+                                     src="{% static 'home/images/notices/notice3.png' %}"
+                                     alt="Post thumb">
+                            {% endif %}
+
+                            <div class="card-body">
+                                <!-- post meta -->
+                                <ul class="list-inline mb-3">
+                                    <!-- post date -->
+                                    <li class="list-inline-item mr-3 ml-0">Posted
+                                        at: {{ notice.notice_created_at|date:"d , M, Y" }}</li>
+
+                                </ul>
+                                <a href="{{ notice.notice_url }}">
+                                    <h4 class="card-title">{{ notice.notice_title }}</h4>
+                                </a>
+                                <p class="card-text">{{ notice.notice_content }}</p>
+                                <a href="{{ notice.notice_url }}" class="btn btn-primary btn-sm" target="_blank">read
+                                    more</a>
+                            </div>
+                        </div>
+                    </article>
+                {% endfor %}
+
+
+            </div>
+        </div>
+    </section>
+    <!-- /blog -->
+
+
+
+
+{% endblock %}

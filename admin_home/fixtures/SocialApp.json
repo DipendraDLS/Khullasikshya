@@ -1,0 +1,30 @@
+[
+{
+    "model": "socialaccount.socialapp",
+    "pk": 1,
+    "fields": {
+        "provider": "facebook",
+        "name": "Facebook Login",
+        "client_id": "666499847303447",
+        "secret": "4184e186293700eca78b7b12c853e475",
+        "key": "",
+        "sites": [
+            3
+        ]
+    }
+},
+{
+    "model": "socialaccount.socialapp",
+    "pk": 2,
+    "fields": {
+        "provider": "google",
+        "name": "Google Login",
+        "client_id": "748405573388-m0ogsd0b12hs75o49rj1j96qtljigdl7.apps.googleusercontent.com",
+        "secret": "iOtdE-zrtv9uO2Vuqv5nFPF4",
+        "key": "",
+        "sites": [
+            3
+        ]
+    }
+}
+]

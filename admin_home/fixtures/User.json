@@ -1,0 +1,22 @@
+[
+{
+    "model": "login_signup.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$150000$hNfiWgc4mJTq$/dTFjl7/p9W9KWDRuRaYAzFeDTE8kX/EDpVs1LduIm8=",
+        "last_login": null,
+        "is_superuser": true,
+        "username": "khulla_admin@9860",
+        "first_name": "",
+        "last_name": "",
+        "email": "dipen.stha8786@gmail.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2020-12-01T08:29:19.022Z",
+        "is_client": true,
+        "image": "user_pic/avatar.png",
+        "groups": [],
+        "user_permissions": []
+    }
+}
+]
